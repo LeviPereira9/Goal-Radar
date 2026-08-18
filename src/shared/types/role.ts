@@ -7,7 +7,7 @@ export const Role = {
 
 export type Role = (typeof Role)[keyof typeof Role];
 
-export const ROLE_HIERARCHY: Record<Role, Number> = {
+export const ROLE_HIERARCHY: Record<Role, number> = {
     USER: 1,
     MOD: 2,
     ADMIN: 3,
