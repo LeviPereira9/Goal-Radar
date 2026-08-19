@@ -1,0 +1,75 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate, useLocation } from "react-router-dom";
+import { loginSchema, type LoginFormData } from "../types/loginSchema";
+import { useLogin } from "../hooks/useLogin";
+import { ApiError } from "@/shared/lib/http/errors";
+
+export function LoginPage(){
+    const navigate = useNavigate();
+    const location = useLocation();
+    const login = useLogin();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<LoginFormData>({
+        resolver: zodResolver(loginSchema),
+    });
+
+    const onSubmit = (data: LoginFormData) => {
+        login.mutate(data, {
+            onSuccess: () => {
+                const from = (location.state as {from?: Location})?.from;
+                navigate(from?.pathname ?? "/", {replace: true});
+            },
+        });
+    };
+
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <h1>Entrar</h1>
+
+        <div>
+            <label htmlFor="login">Usuário ou e-mail</label>
+            <input
+                id="login"
+                type="text"
+                {...register("login")}
+            />
+            {errors.login &&
+                <span>{errors.login.message}</span>
+            }
+        </div>
+
+        <div>
+            <label htmlFor="password">Senha</label>
+            <input 
+                type="password"
+                id="password"
+                {...register("password")}
+                />
+            {errors.password &&
+                <span>{errors.password.message}</span>
+            }
+        </div>
+            
+            {login.isError && (
+                <p role="alert">
+                    {login.error instanceof ApiError ? 
+                    login.error.message : 
+                    "Não foi possível entrar. Tente novamente."}
+                </p>
+            )}
+            
+            <button type="submit" disabled={login.isPending}>
+                {login.isPending ? "Entrando..." : "Entrar"}
+            </button>
+            
+        </form>
+        
+    )
+
+
+}
