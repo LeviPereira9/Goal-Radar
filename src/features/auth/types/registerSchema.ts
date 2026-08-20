@@ -20,7 +20,7 @@ function calculateAge(birthDate: Date): number {
 export const registerSchema = z
     .object({
         username: z.string().min(1, "Informe um nome de usuário"),
-        email: z.string().email("Informe um e-mail válido"),
+        email: z.email("Informe um e-mail válido"),
         password: z.string().min(8, "A senha deve ter no mínimo 8 caracteres"),
         confirmPassword: z.string().min(8, "Confirme sua senha"),
         dateOfBirth: z.string().min(1, "Informe sua data de nascimento"),

@@ -82,6 +82,7 @@ export function RegisterPage(){
                 <input 
                     type="password"
                     id="password"
+                    {...register("password")}
                 />
                 {errors.password &&
                     <span>{errors.password.message}</span>
@@ -91,7 +92,9 @@ export function RegisterPage(){
             <div>
                 <label htmlFor="confirmPassword">Confirmar senha</label>
                 <input
-                    type="password" id="confirmPassword"
+                    type="password"
+                    id="confirmPassword"
+                    {...register("confirmPassword")}
                 />
                 {errors.confirmPassword &&
                     <span>{errors.confirmPassword.message}</span>

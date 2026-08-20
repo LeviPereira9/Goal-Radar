@@ -1,0 +1,41 @@
+import { createBrowserRouter } from "react-router-dom";
+import { LoginPage } from "@/features/auth/pages/LoginPage";
+import { RegisterPage } from "@/features/auth/pages/RegisterPage";
+import { RequireAuth, RequireRole, RequireSelfOnly } from "@/features/auth/components/guards";
+
+import { HomePage } from "./pages/HomePage";
+import { ForbiddenPage } from "./pages/ForbiddenPage";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { CompetitionsPage } from "@/features/competitions/pages/CompetitionsPage";
+import { FavoritesPage } from "@/features/favorites/pages/FavoritesPage";
+import { UserProfilePage } from "@/features/users/pages/UserProfilePage";
+import { AdminPage } from "@/features/admin/pages/AdminPage";
+
+import { Role } from "@/shared/types";
+
+export const router = createBrowserRouter([
+    {path: "/login", element: <LoginPage/>},
+    {path: "/register", element: <RegisterPage/>},
+    {path: "/forbidden", element: <ForbiddenPage/>},
+
+    {
+        element: <RequireAuth/>,
+        children: [
+            {path: "/", element: <HomePage/>},
+            {path: "/competitions", element: <CompetitionsPage/>},
+            {path: "/favorites", element: <FavoritesPage/>},
+
+            {
+                element: <RequireSelfOnly/>,
+                children: [{path: "/users/:username", element: <UserProfilePage/>}]
+            },
+
+            {
+                element: <RequireRole minRole={Role.SUPER_ADMIN}/>,
+                children: [{path: "/admin", element: <AdminPage/>}],
+            },
+        ],
+    },
+
+    {path: "*", element: <NotFoundPage/>},
+])

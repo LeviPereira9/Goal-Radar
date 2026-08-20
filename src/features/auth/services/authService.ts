@@ -3,7 +3,7 @@ import type { AuthUser } from "../types/user";
 import type { LoginRequest, RegisterRequest } from "../types/requests";
 
 export const authService = {
-    me: () => httpClient.get<AuthUser>("/api/v1/me"),
+    me: () => httpClient.get<AuthUser>("/api/v1/auth/me"),
     
     login: (data: LoginRequest) =>
         httpClient.post<void>("/api/v1/auth/login", data),
