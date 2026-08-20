@@ -1,12 +1,15 @@
 import { httpClient } from "@/shared/lib/http/client";
 import type { AuthUser } from "../types/user";
+import type { LoginRequest, RegisterRequest } from "../types/requests";
 
 export const authService = {
     me: () => httpClient.get<AuthUser>("/api/v1/me"),
     
-    login: (login: string , password: string) =>
-        httpClient.post<void>("/api/v1/auth/login", {login, password}),
+    login: (data: LoginRequest) =>
+        httpClient.post<void>("/api/v1/auth/login", data),
 
     logout: () => httpClient.post<void>("/api/v1/auth/logout"),
+
+    register: (data: RegisterRequest) => httpClient.post<void>("/api/v1/auth/register", data),
 };
 

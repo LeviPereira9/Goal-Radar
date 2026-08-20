@@ -1,15 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { authService } from "../services/authService";
 import { AUTH_ME_QUERY_KEY } from "./useMe";
-import type { LoginFormData } from "../types/loginSchema";
+import type { RegisterFormData } from "../types/registerSchema";
 
-export function useLogin(){
+export function useRegister(){
     const queryClient = useQueryClient();
-
+    
     return useMutation({
-        mutationFn: (data: LoginFormData) => authService.login(data),
+        mutationFn: (data: RegisterFormData) => authService.register(data),
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: AUTH_ME_QUERY_KEY})
+            queryClient.invalidateQueries({queryKey: AUTH_ME_QUERY_KEY});
         }
     })
 }
