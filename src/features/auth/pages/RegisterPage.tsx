@@ -25,6 +25,18 @@ export function RegisterPage(){
         })
     }
 
+    function getErrorDisplay(error: unknown): {type: "fieldErrors"; errors: Record<string, string>} | {type: "message"; text: string}{
+        if(error instanceof ApiError && error.fieldErrors && Object.keys(error.fieldErrors).length > 0 ){
+            return {type: "fieldErrors", errors: error.fieldErrors};
+        }
+
+        return {
+            type: "message",
+            text: error instanceof ApiError ? error.message : "Não foi possível criar sua conta. Tente novamente.",
+        }
+    }
+    
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <h1>Criar conta</h1>
@@ -86,22 +98,23 @@ export function RegisterPage(){
                 }
             </div>
 
-            {registerMutation.isError && (
-                <p role="alert">
-                    {registerMutation.error instanceof ApiError ?
-                    registerMutation.error.message :
-                    "Não foi possível criar sua conta. Tente novamente."
-                    }
-                </p>
-            )}
+            {registerMutation.isError && (() => {
 
-            {registerMutation.error instanceof ApiError && registerMutation.error.fieldErrors && (
-                <ul role="alert" >
-                    {Object.entries(registerMutation.error.fieldErrors).map(([field, message]) => (
-                        <li key={field}>{message}</li>
-                    ))}
-                </ul>
-            ) }
+                const display = getErrorDisplay(registerMutation.error);
+
+                return display.type === "fieldErrors" ? (
+                    <ul role="alert">
+                        {Object.entries(display.errors).map(([field, message]) => (
+                            <li key={field}>{message}</li>
+                        ))}
+                    </ul>
+                ): (
+                    <p role="alert">{display.text}</p>
+                )
+                
+            })()}
+
+            
 
             <button 
                 type="submit"
