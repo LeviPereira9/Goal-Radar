@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { LoginPage } from "@/features/auth/pages/LoginPage";
 import { RegisterPage } from "@/features/auth/pages/RegisterPage";
-import { RequireAuth, RequireRole, RequireSelfOnly } from "@/features/auth/components/guards";
+import { RequireAuth, RequireRole, RequireSelfOnly, RequireGuest } from "@/features/auth/components/guards";
 
 import { HomePage } from "./pages/HomePage";
 import { ForbiddenPage } from "./pages/ForbiddenPage";
@@ -14,8 +14,14 @@ import { AdminPage } from "@/features/admin/pages/AdminPage";
 import { Role } from "@/shared/types";
 
 export const router = createBrowserRouter([
-    {path: "/login", element: <LoginPage/>},
-    {path: "/register", element: <RegisterPage/>},
+    {
+        element: <RequireGuest/>,
+        children: [
+            {path: "/login", element: <LoginPage/>},
+            {path: "/register", element: <RegisterPage/>},
+        ],
+    },
+    
     {path: "/forbidden", element: <ForbiddenPage/>},
 
     {
