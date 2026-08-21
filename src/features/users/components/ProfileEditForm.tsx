@@ -7,10 +7,11 @@ import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
 
 interface ProfileEditFormProps {
     profile: UserProfile;
+    isSelf: boolean;
     onDone: () => void;
 }
 
-export function ProfileEditForm({profile, onDone }: ProfileEditFormProps){
+export function ProfileEditForm({profile, isSelf, onDone }: ProfileEditFormProps){
     const updateProfile = useUpdateProfile(profile.username);
 
     const {
@@ -38,6 +39,12 @@ export function ProfileEditForm({profile, onDone }: ProfileEditFormProps){
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
+
+            {!isSelf && (
+                <p role="status">
+                    Você está editando o perfil de <span>{profile.username}</span> com privilégios administrativos.
+                </p>
+            )}
 
             <h1>Editar perfil</h1>
 

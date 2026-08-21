@@ -3,12 +3,19 @@ import type { UserProfile } from "../types/user";
 
 interface ProfileDetailsViewProps {
     profile: UserProfile;
+    isSelf: boolean;
     onEdit: () => void;
 }
 
-export function ProfileDetailsView({profile, onEdit}: ProfileDetailsViewProps) {
+export function ProfileDetailsView({profile, isSelf, onEdit}: ProfileDetailsViewProps) {
     return (
         <div>
+            {!isSelf && (
+                <p role="status">
+                    Você está visualizando o perfil de <span>{profile.username}</span> com privilégios administrativos.
+                </p>
+            )}
+            
             <h1>{profile.username}</h1>
             {profile.bio && <p>{profile.bio}</p> }
             <p>E-mail: {profile.email}</p>

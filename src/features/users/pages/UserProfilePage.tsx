@@ -1,21 +1,21 @@
 import { useParams } from "react-router-dom"
 import { useMe } from "@/features/auth/hooks/useMe"
 import { useUserDetails, useUserShortProfile } from "../hooks/useUserProfile"
-import { isSelf } from "@/shared/lib/rbac"
+import { isSelf as checkIsSelf, isSelfOrElevated } from "@/shared/lib/rbac"
 import { ProfileReadOnly } from "../components/ProfileReadOnly"
-import { OwnerProfile } from "../components/OwnerProfile"
+import { EditableProfile } from "../components/EditableProfile"
 
 export function UserProfilePage() {
   const { username } = useParams<{username: string}>();
   const { data: currentUser } = useMe();
   
-
-  const isOwner = !!currentUser && !!username  && isSelf(currentUser.username, username);
+  const isSelf = !!currentUser && !!username && checkIsSelf(currentUser.username, username);
+  const canViewFullDetails = !!currentUser && !!username  && isSelfOrElevated(currentUser.username, username, currentUser.role);
   
-  const shortQuery = useUserShortProfile(isOwner ? "" : username!);
-  const detailsQuery = useUserDetails(isOwner ? username! : "");
+  const shortQuery = useUserShortProfile(canViewFullDetails ? "" : username!);
+  const detailsQuery = useUserDetails(canViewFullDetails ? username! : "");
   
-  if(isOwner){
+  if(canViewFullDetails){
     const { data: profile, isLoading, isError } = detailsQuery;
 
     if(isLoading) return <div>Carregando perfil...</div>;
@@ -24,7 +24,7 @@ export function UserProfilePage() {
     if(isError || !profile) return <div>Não foi possível carregar esse perfil.</div>
     
 
-    return <OwnerProfile profile={profile}/>;
+    return <EditableProfile profile={profile} isSelf={isSelf} />;
   }
   
   const { data: profile, isLoading, isError } = shortQuery;
