@@ -17,21 +17,15 @@ function calculateAge(birthDate: Date): number {
     return age;
 }
 
-export const registerSchema = z
+export const profileSchema = z
     .object({
-        username: z.string().min(1, "Informe um nome de usuário"),
-        email: z.email("Informe um e-mail válido"),
-        password: z.string().min(8, "A senha deve ter no mínimo 8 caracteres"),
-        confirmPassword: z.string().min(8, "Confirme sua senha"),
+        profilePicture: z.string().optional(),
+        bio: z.string().max(300, "A bio deve ter no máximo 300 caracteres").optional(),
         dateOfBirth: z.string().min(1, "Informe sua data de nascimento"),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-        error: "As senhas não concidem",
-        path: ["confirmPassword"],
     })
     .refine((data) => calculateAge(new Date(data.dateOfBirth)) >= MINIMUM_AGE,{
         error: "Você precisa ter pelo menos 18 anos para se cadastrar",
         path: ["dateOfBirth"],
     });
 
-export type RegisterFormData = z.infer<typeof registerSchema>;
+export type ProfileFormData = z.infer<typeof profileSchema>

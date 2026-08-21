@@ -31,9 +31,11 @@ export const router = createBrowserRouter([
             {path: "/competitions", element: <CompetitionsPage/>},
             {path: "/favorites", element: <FavoritesPage/>},
 
+            {path: "/users/:username", element: <UserProfilePage/>},
+
             {
                 element: <RequireSelfOnly/>,
-                children: [{path: "/users/:username", element: <UserProfilePage/>}]
+                children: [],
             },
 
             {

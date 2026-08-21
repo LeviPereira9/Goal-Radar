@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useLocation } from "react-router-dom";
 import { loginSchema, type LoginFormData } from "../types/loginSchema";
 import { useLogin } from "../hooks/useLogin";
-import { ApiError } from "@/shared/lib/http/errors";
+import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
 
 export function LoginPage(){
     const navigate = useNavigate();
@@ -56,11 +56,7 @@ export function LoginPage(){
         </div>
             
             {login.isError && (
-                <p role="alert">
-                    {login.error instanceof ApiError ? 
-                    login.error.message : 
-                    "Não foi possível entrar. Tente novamente."}
-                </p>
+                <ApiErrorDisplay error={login.error} fallbackMessage="Não foi possível entrar na conta. Tente novamente." />
             )}
             
             <button type="submit" disabled={login.isPending}>

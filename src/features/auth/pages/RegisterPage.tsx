@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { type RegisterFormData, registerSchema } from "../types/registerSchema";
 import { useRegister } from "../hooks/useRegister";
-import { ApiError } from "@/shared/lib/http/errors";
+import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
 
 export function RegisterPage(){
     const navigate = useNavigate();
@@ -24,18 +24,6 @@ export function RegisterPage(){
             }
         })
     }
-
-    function getErrorDisplay(error: unknown): {type: "fieldErrors"; errors: Record<string, string>} | {type: "message"; text: string}{
-        if(error instanceof ApiError && error.fieldErrors && Object.keys(error.fieldErrors).length > 0 ){
-            return {type: "fieldErrors", errors: error.fieldErrors};
-        }
-
-        return {
-            type: "message",
-            text: error instanceof ApiError ? error.message : "Não foi possível criar sua conta. Tente novamente.",
-        }
-    }
-    
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -101,21 +89,9 @@ export function RegisterPage(){
                 }
             </div>
 
-            {registerMutation.isError && (() => {
-
-                const display = getErrorDisplay(registerMutation.error);
-
-                return display.type === "fieldErrors" ? (
-                    <ul role="alert">
-                        {Object.entries(display.errors).map(([field, message]) => (
-                            <li key={field}>{message}</li>
-                        ))}
-                    </ul>
-                ): (
-                    <p role="alert">{display.text}</p>
-                )
-                
-            })()}
+            {registerMutation.isError && (
+                <ApiErrorDisplay error={registerMutation.error} fallbackMessage="Não foi possível criar uma conta. Tente novamente."/>
+            )}
 
             
 
