@@ -52,7 +52,7 @@ export function UserSearchPage(){
                         Página {data.page} de {data.totalPages || 1}
                     </span>
                     <button
-                        disabled={!data.hasNext || isFetching}t
+                        disabled={!data.hasNext || isFetching}
                         onClick={() => setPage((p) => p + 1)}
                     >Próxima</button>
                 </>
