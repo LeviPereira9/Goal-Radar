@@ -1,6 +1,7 @@
 import { httpClient } from "@/shared/lib/http/client";
 import type { UserShortProfile, UserProfile } from "../types/user";
 import type { PasswordFormData } from "../types/passwordSchema";
+import type { EmailFormData } from "../types/emailSchema";
 
 export const userService = {
     getShort: (username: string) =>
@@ -11,4 +12,16 @@ export const userService = {
 
     updatePassword: (username: string, data: PasswordFormData) =>
         httpClient.patch<void>(`/api/v1/user/${username}/password`, data),
+
+    requestEmailChange: (username: string, data: EmailFormData) =>
+        httpClient.post<void>(`/api/v1/user/${username}/email`, data),
+
+    deleteAccount: (username: string) =>
+        httpClient.delete<void>(`/api/v1/user/${username}`),
+
+    confirmEmailChange: (username: string, code: string) =>
+        httpClient.post<void>(`/api/v1/verify/email/${username}?token=${encodeURIComponent(code)}`),
+
+    resendConfirmationEmail: (username: string) => 
+        httpClient.post<void>(`/api/v1/verify/resend/${username}`),
 }

@@ -13,6 +13,8 @@ import { AdminPage } from "@/features/admin/pages/AdminPage";
 
 import { Role } from "@/shared/types";
 import { ChangePasswordPage } from "@/features/users/pages/ChangePasswordPage";
+import { ChangeEmailPage } from "@/features/users/pages/ChangeEmailPage";
+import { DeleteAccountPage } from "@/features/users/pages/DeleteAccountPage";
 
 export const router = createBrowserRouter([
     {
@@ -38,14 +40,14 @@ export const router = createBrowserRouter([
                 element: <RequireSelfOnly/>,
                 children: [
                     {path: "/users/:username/password", element: <ChangePasswordPage/>},
-                    {path: "/users/:username/email", element: null},
+                    {path: "/users/:username/email", element: <ChangeEmailPage/>},
                 ],
             },
 
             {
                 element: <RequireSelfOrElevated/>,
                 children: [
-                    {path: "/users/:username/delete", element: null},
+                    {path: "/users/:username/delete", element: <DeleteAccountPage/>},
                     
                 ]
             },
