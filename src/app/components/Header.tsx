@@ -12,7 +12,15 @@ export function Header(){
         <header>
             <nav>
                 <Link to="/">Goal Radar</Link>
-                {currentUser && <Link to={`/users/${currentUser.username}`}>Meu perfil</Link>}
+
+                {currentUser && 
+                    <Link
+                        to={`/users/${currentUser.username}`}
+                    >
+                    Meu perfil
+                    </Link>
+                }
+                <Link to="/search" >Buscar usuários</Link>
             </nav>
 
             {profile && !profile.verified && (

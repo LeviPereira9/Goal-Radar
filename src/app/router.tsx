@@ -19,6 +19,7 @@ import { AppLayout } from "./components/AppLayout";
 import { VerifyAccountPage } from "@/features/auth/pages/VerifyAccountPage";
 import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "@/features/auth/pages/ResetPasswordPage";
+import { UserSearchPage } from "@/features/users/pages/UserSearchPage";
 
 export const router = createBrowserRouter([
     {
@@ -45,6 +46,8 @@ export const router = createBrowserRouter([
                     {path: "/verify-account", element: <VerifyAccountPage/>},
 
                     {path: "/users/:username", element: <UserProfilePage/>},
+
+                    {path: "/search", element: <UserSearchPage/>},
 
                     {
                         element: <RequireSelfOnly/>,

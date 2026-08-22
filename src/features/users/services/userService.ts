@@ -2,6 +2,7 @@ import { httpClient } from "@/shared/lib/http/client";
 import type { UserShortProfile, UserProfile } from "../types/user";
 import type { PasswordFormData } from "../types/passwordSchema";
 import type { EmailFormData } from "../types/emailSchema";
+import type { Page } from "@/shared/types";
 
 export const userService = {
     getShort: (username: string) =>
@@ -21,4 +22,9 @@ export const userService = {
 
     confirmEmailChange: (username: string, code: string) =>
         httpClient.post<void>(`/api/v1/verify/email/${username}?token=${encodeURIComponent(code)}`),
+
+    search: (search: string, page: number) =>
+        httpClient.get<Page<UserShortProfile>>(
+            `/api/v1/user/search?search=${encodeURIComponent(search)}&page=${page}`
+        )
 }
