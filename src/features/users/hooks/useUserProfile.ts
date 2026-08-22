@@ -14,5 +14,6 @@ export function useUserDetails(username: string){
         queryKey: ["users", "details", username],
         queryFn: () => userService.getDetails(username),
         enabled: !!username,
+        retry: false
     })
 }
