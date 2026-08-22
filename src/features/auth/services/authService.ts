@@ -11,5 +11,12 @@ export const authService = {
     logout: () => httpClient.post<void>("/api/v1/auth/logout"),
 
     register: (data: RegisterRequest) => httpClient.post<void>("/api/v1/auth/register", data),
+
+    
+    resendConfirmationEmail: (username: string) => 
+        httpClient.post<void>(`/api/v1/verify/resend/${username}`),
+
+    confirmAccount: (username: string, code: string) =>
+        httpClient.post<void>(`/api/v1/verify/confirm/${username}?token=${encodeURIComponent(code)}`)
 };
 

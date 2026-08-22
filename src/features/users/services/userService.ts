@@ -21,7 +21,4 @@ export const userService = {
 
     confirmEmailChange: (username: string, code: string) =>
         httpClient.post<void>(`/api/v1/verify/email/${username}?token=${encodeURIComponent(code)}`),
-
-    resendConfirmationEmail: (username: string) => 
-        httpClient.post<void>(`/api/v1/verify/resend/${username}`),
 }
