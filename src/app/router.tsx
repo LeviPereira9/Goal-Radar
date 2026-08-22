@@ -17,6 +17,8 @@ import { ChangeEmailPage } from "@/features/users/pages/ChangeEmailPage";
 import { DeleteAccountPage } from "@/features/users/pages/DeleteAccountPage";
 import { AppLayout } from "./components/AppLayout";
 import { VerifyAccountPage } from "@/features/auth/pages/VerifyAccountPage";
+import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPasswordPage";
+import { ResetPasswordPage } from "@/features/auth/pages/ResetPasswordPage";
 
 export const router = createBrowserRouter([
     {
@@ -24,6 +26,8 @@ export const router = createBrowserRouter([
         children: [
             {path: "/login", element: <LoginPage/>},
             {path: "/register", element: <RegisterPage/>},
+            {path: "/forgot-password", element: <ForgotPasswordPage/>},
+            {path: "/reset-password/:username", element: <ResetPasswordPage/>},
         ],
     },
     

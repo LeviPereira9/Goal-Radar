@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { loginSchema, type LoginFormData } from "../types/loginSchema";
 import { useLogin } from "../hooks/useLogin";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
@@ -9,6 +9,8 @@ export function LoginPage(){
     const navigate = useNavigate();
     const location = useLocation();
     const login = useLogin();
+
+    const successMessage = (location.state as {message?: string})?.message;
 
     const {
         register,
@@ -28,6 +30,11 @@ export function LoginPage(){
     };
 
     return (
+        <>
+        {successMessage &&
+            <p role="status" >{successMessage}</p>
+        }
+        
         <form onSubmit={handleSubmit(onSubmit)}>
             <h1>Entrar</h1>
 
@@ -62,8 +69,10 @@ export function LoginPage(){
             <button type="submit" disabled={login.isPending}>
                 {login.isPending ? "Entrando..." : "Entrar"}
             </button>
+            <Link to="/forgot-password">Esqueci minha senha</Link>
             
         </form>
+        </>
         
     )
 

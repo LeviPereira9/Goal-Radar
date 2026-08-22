@@ -17,6 +17,12 @@ export const authService = {
         httpClient.post<void>(`/api/v1/verify/resend/${username}`),
 
     confirmAccount: (username: string, code: string) =>
-        httpClient.post<void>(`/api/v1/verify/confirm/${username}?token=${encodeURIComponent(code)}`)
+        httpClient.post<void>(`/api/v1/verify/confirm/${username}?token=${encodeURIComponent(code)}`),
+
+    forgotPassword: (username: string) =>
+        httpClient.post<void>(`/api/v1/verify/password/forgot/${username}`),
+
+    resetPassword: (username: string, code: string, data: {newPassword: string, confirmNewPassword: string}) =>
+        httpClient.post<void>(`/api/v1/verify/password/reset/${username}?token=${encodeURIComponent(code)}`, data),
 };
 
