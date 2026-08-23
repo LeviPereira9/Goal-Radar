@@ -20,6 +20,7 @@ import { VerifyAccountPage } from "@/features/auth/pages/VerifyAccountPage";
 import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "@/features/auth/pages/ResetPasswordPage";
 import { UserSearchPage } from "@/features/users/pages/UserSearchPage";
+import { ManageRolesPage } from "@/features/admin/pages/ManageRolesPage";
 
 export const router = createBrowserRouter([
     {
@@ -66,8 +67,11 @@ export const router = createBrowserRouter([
                     },
 
                     {
-                        element: <RequireRole minRole={Role.SUPER_ADMIN}/>,
-                        children: [{path: "/admin", element: <AdminPage/>}],
+                        element: <RequireRole minRole={Role.MOD}/>,
+                        children: [
+                            {path: "/admin", element: <AdminPage/>},
+                            {path: "/admin/roles", element: <ManageRolesPage/>}
+                        ],
                     },
                 ]
             },
