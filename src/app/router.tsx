@@ -22,6 +22,7 @@ import { ResetPasswordPage } from "@/features/auth/pages/ResetPasswordPage";
 import { UserSearchPage } from "@/features/users/pages/UserSearchPage";
 import { ManageRolesPage } from "@/features/admin/pages/ManageRolesPage";
 import { ManageCompetitionCodesPage } from "@/features/admin/pages/ManageCompetitionCodesPage";
+import { SyncPage } from "@/features/admin/pages/SyncPage";
 
 export const router = createBrowserRouter([
     {
@@ -79,7 +80,13 @@ export const router = createBrowserRouter([
                         children: [
                             {path: "/admin/competitions", element: <ManageCompetitionCodesPage/>}
                         ]
-                    }
+                    },
+                    {
+                        element: <RequireRole minRole={Role.SUPER_ADMIN}/>,
+                        children: [
+                            {path: "/admin/sync", element: <SyncPage/>},
+                        ]
+                    },
                 ]
             },
         ],

@@ -16,4 +16,8 @@ export const adminService = {
 
     deleteCode: (competitionId: number) =>
         httpClient.delete<void>(`/api/v1/competition/code/${competitionId}`),
+
+    startAllSyncs: () => httpClient.post<void>("/api/v1/auto"),
+
+    startSync: (code: string) => httpClient.post<void>(`/api/v1/auto/${code}`),
 }
