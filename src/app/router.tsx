@@ -21,6 +21,7 @@ import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "@/features/auth/pages/ResetPasswordPage";
 import { UserSearchPage } from "@/features/users/pages/UserSearchPage";
 import { ManageRolesPage } from "@/features/admin/pages/ManageRolesPage";
+import { ManageCompetitionCodesPage } from "@/features/admin/pages/ManageCompetitionCodesPage";
 
 export const router = createBrowserRouter([
     {
@@ -73,6 +74,12 @@ export const router = createBrowserRouter([
                             {path: "/admin/roles", element: <ManageRolesPage/>}
                         ],
                     },
+                    {
+                        element: <RequireRole minRole={Role.ADMIN}/>,
+                        children: [
+                            {path: "/admin/competitions", element: <ManageCompetitionCodesPage/>}
+                        ]
+                    }
                 ]
             },
         ],
