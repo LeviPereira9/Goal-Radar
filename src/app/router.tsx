@@ -6,7 +6,6 @@ import { RequireAuth, RequireRole, RequireSelfOnly, RequireGuest, RequireSelfOrE
 import { HomePage } from "./pages/HomePage";
 import { ForbiddenPage } from "./pages/ForbiddenPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { CompetitionsPage } from "@/features/competitions/pages/CompetitionsPage";
 import { FavoritesPage } from "@/features/favorites/pages/FavoritesPage";
 import { UserProfilePage } from "@/features/users/pages/UserProfilePage";
 import { AdminPage } from "@/features/admin/pages/AdminPage";
@@ -23,6 +22,7 @@ import { UserSearchPage } from "@/features/users/pages/UserSearchPage";
 import { ManageRolesPage } from "@/features/admin/pages/ManageRolesPage";
 import { ManageCompetitionCodesPage } from "@/features/admin/pages/ManageCompetitionCodesPage";
 import { SyncPage } from "@/features/admin/pages/SyncPage";
+import { CompetitionsListPage } from "@/features/competitions/pages/CompetitionsListPage";
 
 export const router = createBrowserRouter([
     {
@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
                 element: <AppLayout/>,
                 children: [
                     {path: "/", element: <HomePage/>},
-                    {path: "/competitions", element: <CompetitionsPage/>},
+                    {path: "/competitions", element: <CompetitionsListPage/>},
                     {path: "/favorites", element: <FavoritesPage/>},
                     {path: "/verify-account", element: <VerifyAccountPage/>},
 
