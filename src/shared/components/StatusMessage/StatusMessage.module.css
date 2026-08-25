@@ -1,0 +1,25 @@
+.message {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    border: 1px soldi transparent;
+    margin-bottom: 10px;
+}
+
+.error {
+    background-color: color-mix(in srgb, var(--color-error) 10%, white);
+    border-color: color-mix(in srgb, var(--color-error) 30%, white);
+    color: var(--color-error);
+}
+
+.success{
+    background-color: color-mix(in srgb, var(--color-success) 10%, white);
+    border-color: color-mix(in srgb, var(--color-warning) 30%, white);
+    color: var(--color-warning);
+}
+
+.info {
+    background-color: var(--color-bg);
+    border-color: var(--color-border);
+    color: var(--color-text-secondary);
+}
