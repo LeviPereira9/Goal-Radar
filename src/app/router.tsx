@@ -23,6 +23,7 @@ import { ManageRolesPage } from "@/features/admin/pages/ManageRolesPage";
 import { ManageCompetitionCodesPage } from "@/features/admin/pages/ManageCompetitionCodesPage";
 import { SyncPage } from "@/features/admin/pages/SyncPage";
 import { CompetitionsListPage } from "@/features/competitions/pages/CompetitionsListPage";
+import { CompetitionDetailPage } from "@/features/competitions/pages/CompetitionDetailPage";
 
 export const router = createBrowserRouter([
     {
@@ -45,6 +46,7 @@ export const router = createBrowserRouter([
                 children: [
                     {path: "/", element: <HomePage/>},
                     {path: "/competitions", element: <CompetitionsListPage/>},
+                    {path:"/competitions/:code", element: <CompetitionDetailPage/>},
                     {path: "/favorites", element: <FavoritesPage/>},
                     {path: "/verify-account", element: <VerifyAccountPage/>},
 

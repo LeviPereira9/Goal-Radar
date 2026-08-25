@@ -12,7 +12,7 @@ export function ProbabilityInsightDisplay({label, probability}: probabilityInsig
     return (
         <div data-level={insight.level}>
             <div>
-                <span>{label}</span>
+                <span>{label} </span>
                 <span>{percentage}%</span>
             </div>
             <p>{insight.label}</p>
