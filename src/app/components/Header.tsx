@@ -42,7 +42,9 @@ export function Header(){
                     <ul>
                         {competitions.codes.map((c) => (
                             <li key={c.id}>
-                                <Link to={`/competitions/${c.code}`}>{c.code}</Link>
+                                <Link to={`/competitions/${c.code}`}>{c.code}
+                                {!c.active && " (inativo)"}
+                                </Link>
                             </li>
                         ))}
                     </ul>

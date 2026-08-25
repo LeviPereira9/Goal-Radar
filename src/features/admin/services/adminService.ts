@@ -14,10 +14,13 @@ export const adminService = {
     createCode: (code: string, name: string) =>
         httpClient.post<CompetitionCode>("/api/v1/competition/code", { code, name }),
 
-    deleteCode: (competitionId: number) =>
+    deactivateCode: (competitionId: number) =>
         httpClient.delete<void>(`/api/v1/competition/code/${competitionId}`),
 
     startAllSyncs: () => httpClient.post<void>("/api/v1/auto"),
 
-    startSync: (code: string) => httpClient.post<void>(`/api/v1/auto/${code}`),
+    startSync: (codeId: number) => httpClient.post<void>(`/api/v1/auto/${codeId}`),
+
+    reactivateCode: (competitionId: number) =>
+        httpClient.put<CompetitionCode>(`/api/v1/competition/code/${competitionId}`),
 }

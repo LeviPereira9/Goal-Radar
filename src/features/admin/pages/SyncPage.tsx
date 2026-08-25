@@ -7,11 +7,11 @@ export function SyncPage(){
     const {data} = useCompetitionCodes();
     const startAllSyncs = useStartAllSyncs();
     const startSync = useStartSync();
-    const [syncingCode, setSyncingCode] = useState<string | null>(null);
+    const [syncingCode, setSyncingCode] = useState<number | null>(null);
 
-    const handleSyncOne = (code: string) => {
-        setSyncingCode(code);
-        startSync.mutate(code, {
+    const handleSyncOne = (codeId: number) => {
+        setSyncingCode(codeId);
+        startSync.mutate(codeId, {
             onSettled: () => setSyncingCode(null)
         });
     };
@@ -43,10 +43,10 @@ export function SyncPage(){
                         <li key={competition.id}>
                             {competition.name}
                             <button
-                                onClick={() => handleSyncOne(competition.code)}
-                                disabled={startSync.isPending && syncingCode === competition.code}
+                                onClick={() => handleSyncOne(competition.id)}
+                                disabled={startSync.isPending && syncingCode === competition.id}
                             >
-                                {startSync.isPending && syncingCode === competition.code ? "Sincronizando..." : "Sincronizar"}
+                                {startSync.isPending && syncingCode === competition.id ? "Sincronizando..." : "Sincronizar"}
                             </button>
                         </li>
                     ))}

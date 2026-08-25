@@ -1,12 +1,12 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { adminService } from "../services/adminService";
 import type { CodeFormData } from "../types/codeSchema";
+import { COMPETITION_CODES_QUERY_KEY } from "@/shared/lib/queryKeys";
 
-const CODES_QUERY_KEY = ["admin", "codes"] as const;
 
 export function useCompetitionCodes(){
     return useQuery({
-        queryKey: CODES_QUERY_KEY,
+        queryKey: COMPETITION_CODES_QUERY_KEY,
         queryFn: adminService.getAllCodes
     })
 }
@@ -18,19 +18,33 @@ export function useCreateCode(){
         mutationFn: (data: CodeFormData) => adminService.createCode(data.code, data.name),
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: CODES_QUERY_KEY
+                queryKey: COMPETITION_CODES_QUERY_KEY
             },)
         }
     })
 }
 
-export function useDeleteCode(){
+export function useDeactivateCode(){
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: (competitionId: number) => adminService.deleteCode(competitionId),
+        mutationFn: (competitionId: number) => adminService.deactivateCode(competitionId),
         onSuccess: () => {
-            queryClient.invalidateQueries({queryKey: CODES_QUERY_KEY});
+            queryClient.invalidateQueries({queryKey: COMPETITION_CODES_QUERY_KEY});
+        }
+    })
+}
+
+export function useUpdateCode(){
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (competitionId: number) =>
+        adminService.reactivateCode(competitionId),
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: COMPETITION_CODES_QUERY_KEY
+            })
         }
     })
 }

@@ -8,7 +8,6 @@ import { AveragesTable } from "../components/AveragesTable";
 import { Drawer } from "@/shared/components/Drawer";
 import { ResponsibleGamingNotice } from "@/shared/components/ResponsibleGamingNotice";
 import { FavoriteButton } from "@/features/favorites/components/FavoriteButton";
-import { useCompetitions } from "../hooks/useCompetitions";
 
 export function CompetitionDetailPage(){
     const {code} = useParams<{code: string}>();
@@ -18,9 +17,6 @@ export function CompetitionDetailPage(){
     const {data: competition, isLoading: isLoadingCompetition} = useCompetitionDetail(code!);
     const matchesQuery = useMatches(competition?.id ?? 0, matchday);
 
-    const {data: codesData} = useCompetitions();
-    
-
     if(isLoadingCompetition){
         return <div>Carregando competição...</div>
     }
@@ -29,16 +25,14 @@ export function CompetitionDetailPage(){
         return <div>Competição não encontrada.</div>
     }
 
-    const codeEntry = codesData?.codes.find((c) => c.code === competition.code)
 
     const hasMatchesWithoutProbability = matchesQuery.data?.matches.some((m) => !m.probability);
 
     return (
         <div>
             <h1>{competition.name}</h1>
-            {codeEntry &&
-                <FavoriteButton codeId={codeEntry.id} />
-            }
+            
+            <FavoriteButton codeId={competition.code.id} />
 
             <div>
                 <button onClick={()=> setOpenPanel("standings")} >Ver classificação</button>

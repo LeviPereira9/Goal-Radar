@@ -1,13 +1,14 @@
 import {useForm} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { codeSchema, type CodeFormData } from "../types/codeSchema";
-import { useCompetitionCodes, useCreateCode, useDeleteCode } from "../hooks/useCompetitionCode";
+import { useCompetitionCodes, useCreateCode, useDeactivateCode, useUpdateCode } from "../hooks/useCompetitionCode";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
 
 export function ManageCompetitionCodesPage(){
     const {data, isLoading} = useCompetitionCodes();
     const createCode = useCreateCode();
-    const deleteCode = useDeleteCode();
+    const deactivateCode = useDeactivateCode();
+    const updateCode = useUpdateCode();
 
     const {
         register,
@@ -22,11 +23,15 @@ export function ManageCompetitionCodesPage(){
         createCode.mutate(formData, {onSuccess: () => reset()});
     };
 
-    const handleDelete = (id: number, name: string) => {
+    const handleDeactivate = (id: number, name: string) => {
         if(!window.confirm(`Remover o acompanhamento de "${name}"?`)) return;
-        deleteCode.mutate(id);
+        deactivateCode.mutate(id);
     }
 
+    const handleReactivate = (id: number) => {
+        updateCode.mutate(id);
+    }
+    
     return (
         <div>
             <h1>Competições acompanhadas</h1>
@@ -78,10 +83,21 @@ export function ManageCompetitionCodesPage(){
                     {data.codes.map((competition) => (
                         <li key={competition.id}>
                             {competition.name} ({competition.code})
-                            <button
-                                onClick={() => handleDelete(competition.id, competition.name)}
-                                disabled={deleteCode.isPending}
-                            >Remover</button>
+                            {!competition.active &&
+                                <span> - Inativo</span>
+                            }
+
+                            {competition.active ? (
+                                <button
+                                    onClick={() => handleDeactivate(competition.id, competition.name)}
+                                    disabled={deactivateCode.isPending}
+                                >Desativar</button>
+                            ): (
+                                <button
+                                    onClick={() => handleReactivate(competition.id)}
+                                    disabled={deactivateCode.isPending}
+                                >Reativar</button>
+                            )}
                         </li>
                     ))}
                 </ul>

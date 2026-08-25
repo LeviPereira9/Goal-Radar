@@ -1,13 +1,16 @@
-export interface CompetitionSummary {
+export interface CompetitionCode {
     id: number;
     code: string;
     name: string;
+    active: boolean;
 }
+
+export type CompetitionSummary = CompetitionCode
 
 export interface Competition {
     id: number;
     name: string;
-    code: string;
+    code: CompetitionCode;
     type: string;
     emblem: string;
     currentMatchDay: number;

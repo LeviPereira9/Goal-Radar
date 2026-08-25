@@ -25,6 +25,7 @@ export function CompetitionsListPage(){
                     <li key={competition.id}>
                         <Link to={`/competitions/${competition.code}`}>
                         {competition.name}
+                        {!competition.active && " (inativo)"}
                         </Link>
                         <FavoriteButton
                             codeId={competition.id} />

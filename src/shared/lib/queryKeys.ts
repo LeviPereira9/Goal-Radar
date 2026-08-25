@@ -1,0 +1,1 @@
+export const COMPETITION_CODES_QUERY_KEY = ["competitionCodes"] as const;

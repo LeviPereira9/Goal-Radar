@@ -9,6 +9,6 @@ export function useStartAllSyncs(){
 
 export function useStartSync(){
     return useMutation({
-        mutationFn: (code: string) => adminService.startSync(code),
+        mutationFn: (codeId: number) => adminService.startSync(codeId),
     })
 }
