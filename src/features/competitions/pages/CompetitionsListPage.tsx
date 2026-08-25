@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCompetitions } from "../hooks/useCompetitions";
+import { FavoriteButton } from "@/features/favorites/components/FavoriteButton";
 
 export function CompetitionsListPage(){
     const { data, isLoading, isError } = useCompetitions();
@@ -25,6 +26,8 @@ export function CompetitionsListPage(){
                         <Link to={`/competitions/${competition.code}`}>
                         {competition.name}
                         </Link>
+                        <FavoriteButton
+                            codeId={competition.id} />
                     </li>
                 ))}
             </ul>
