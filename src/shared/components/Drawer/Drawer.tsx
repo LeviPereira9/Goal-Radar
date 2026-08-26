@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import styles from "./Drawer.module.css";
 
 interface DrawerProps {
     isOpen: boolean;
@@ -25,22 +26,25 @@ export function Drawer({isOpen, onClose, title, children}: DrawerProps){
 
     return createPortal(
         <div
+            className={styles.overlay}
             role="presentation"
             onClick={onClose}>
             <div
+                className={styles.panel}
                 role="dialog"
                 aria-modal="true"
                 aria-label={title}
                 onClick={(e) => e.stopPropagation()}
             >
-                <header>
-                    <h2>{title}</h2>
+                <header className={styles.header}>
+                    <h2 className={styles.title}>{title}</h2>
                     <button
+                        className={styles.closeButton}
                         onClick={onClose}
                         aria-label="Fechar"
                     >X</button>
                 </header>
-                <div>{children}</div>
+                <div className={styles.content} >{children}</div>
             </div>
         </div>,
         document.body

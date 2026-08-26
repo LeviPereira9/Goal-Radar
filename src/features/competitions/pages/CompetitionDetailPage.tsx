@@ -5,7 +5,7 @@ import { useMatches } from "../hooks/useMatches";
 import { MatchCard } from "../components/MatchCard";
 import { StandingsTable } from "../components/StandingsTable";
 import { AveragesTable } from "../components/AveragesTable";
-import { Drawer } from "@/shared/components/Drawer";
+import { Drawer } from "@/shared/components/Drawer/Drawer";
 import { ResponsibleGamingNotice } from "@/shared/components/ResponsibleGamingNotice";
 import { FavoriteButton } from "@/features/favorites/components/FavoriteButton";
 

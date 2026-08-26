@@ -1,0 +1,69 @@
+.container {
+    position: fixed;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    z-index: 200;
+    max-width: 360px;
+}
+
+.toast {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--font-size-md);
+    font-size: var(--font-size-sm);
+    animation: slideUp 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.error {
+    background-color: var(--color-surface);
+    border-color: color-mix(in srgb, var(--color-error) 30%, white);
+    color: var(--color-error);
+}
+
+.success {
+    background-color: var(--color-surface);
+    border-color: color-mix(in srgb, var(--color-success) 30%, white);
+    color: var(--color-success);
+}
+
+.warning {
+    background-color: var(--color-surface);
+    border-color: color-mix(in srgb, var(--color-warning) 30%, white);
+    color: var(--color-warning);
+}
+
+.info {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+.closeButton {
+    color: inherit;
+    opacity: 0.6;
+    flex-shrink: 0;
+}
+
+.closeButton:hover {
+    opacity: 1;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+}
