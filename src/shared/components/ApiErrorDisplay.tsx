@@ -8,6 +8,10 @@ interface ApiErrorDisplayProps {
 export function ApiErrorDisplay({error, fallbackMessage} : ApiErrorDisplayProps) {
     const display = getErrorDisplay(error, fallbackMessage);
 
+    if(!display){
+        return null;
+    }
+
     return display.type === "fieldErrors" && display.errors ? (
         <ul role="alert">
             {Object.entries(display.errors).map(([field, message]) => (

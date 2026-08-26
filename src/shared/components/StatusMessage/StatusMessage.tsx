@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { isValidElement, type ReactNode } from "react";
 import styles from "./StatusMessage.module.css";
 
 type StatusType = "error" | "success" | "warning" | "info";
@@ -16,6 +16,10 @@ const ROLE_BY_TYPE: Record<StatusType, "alert" | "status"> = {
 }
 
 export function StatusMessage({type, children}: StatusMessageProps){
+    if(isValidElement(children)){
+        return null;
+    }
+    
     return (
         <div role={ROLE_BY_TYPE[type]} className={`${styles.message} ${styles[type]}`}>
             {children}
