@@ -4,6 +4,11 @@ import { verifyCodeSchema, type VerifyCodeFormData } from "../types/verifyCodeSc
 import { useConfirmAccount, useResendConformation } from "../hooks/useAccountVerification";
 import { useMyDetails } from "../hooks/useMyDetails";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
+import { AuthLayout } from "../components/AuthLayout";
+import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
+import { TextField } from "@/shared/components/TextField/TextField";
+import { Button } from "@/shared/components/Button/Button";
+import sharedStyle from "@/shared/styles/shared.module.css";
 
 export function VerifyAccountPage(){
     const {data: profile, isLoading} = useMyDetails();
@@ -34,39 +39,41 @@ export function VerifyAccountPage(){
     const onSubmit = (data: VerifyCodeFormData) => confirmAccount.mutate(data);
 
     return (
-        <div>
-            <h1>Verificar conta</h1>
+        <AuthLayout title="Verificar conta">
 
             {confirmAccount.isSuccess ? (
-                <p role="status">Conta verificada com sucesso!</p>
+
+                <StatusMessage type="success">
+                    <p role="status">Conta verificada com sucesso!</p>
+                </StatusMessage>
+                
             ):(
                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                    <div>
-                        <label htmlFor="code">Código de verificação</label>
-                        <input
-                            type="text"
-                            id="code"
-                            {...register("code")}
-                        />
-                        {errors.code &&
-                            <span>{errors.code.message}</span>
-                        }
-                    </div>
+                    <TextField
+                        label="Código de verificação"
+                        type="text"
+                        {...register("code")}
+                        error={errors.code?.message}
+                    />
+                    
 
                     {confirmAccount.isError && (
-                        <ApiErrorDisplay
-                            error={confirmAccount.error}
-                            fallbackMessage="Não foi possível verificar seu e-mail"
-                        />
+                        <StatusMessage type="error">
+                            <ApiErrorDisplay
+                                error={confirmAccount.error}
+                                fallbackMessage="Não foi possível verificar seu e-mail"
+                            />
+                        </StatusMessage>
                     )}
 
-                    <button 
+                    <Button 
                         type="submit"
                         disabled={confirmAccount.isPending}
+                        className={sharedStyle.submitButton}
                     >
                         {confirmAccount.isPending ? "Confirmando..." : "Confirmar"}
-                    </button>
+                    </Button>
                     
                 </form>
             )}
@@ -80,6 +87,6 @@ export function VerifyAccountPage(){
             {resendConfirmation.isSuccess &&
                 <p role="status" >Código reenviado</p>
             }
-        </div>
+        </AuthLayout>
     )
 }

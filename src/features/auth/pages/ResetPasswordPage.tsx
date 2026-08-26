@@ -4,6 +4,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import { resetPasswordSchema, type ResetPasswordFormData } from "../types/resetPasswordSchema";
 import { useResetPassword } from "../hooks/usePasswordRecovery";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
+import { AuthLayout } from "../components/AuthLayout";
+import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
+import { TextField } from "@/shared/components/TextField/TextField";
+import { Button } from "@/shared/components/Button/Button";
+import sharedStyle from "@/shared/styles/shared.module.css";
 
 export function ResetPasswordPage(){
     const {username} = useParams<{username: string}>();
@@ -32,60 +37,53 @@ export function ResetPasswordPage(){
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Redefinir senha</h1>
-            <p>Informe o código recebido por e-mail e sua nova senha.</p>
+        <AuthLayout title="Redefinir a senha" >
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <StatusMessage type="info">
+                    <p>Informe o código recebido por e-mail e sua nova senha.</p>
+                </StatusMessage>
 
-            <div>
-                <label htmlFor="code">Código</label>
-                <input
+                <TextField
+                    label="Código"
                     type="text"
-                    id="code"
-                    {...register("code")}
+                    {...register}
+                    error={errors.code?.message}
                 />
-                {errors.code &&
-                    <span>{errors.code.message}</span>
-                }
-            </div>
-            
-            <div>
-                <label htmlFor="newPassword">Nova senha</label>
-                <input
+
+                <TextField
+                    label="Nova senha"
                     type="password"
-                    id="newPassword"
                     {...register("newPassword")}
+                    error={errors.newPassword?.message}
                 />
-                {errors.newPassword &&
-                    <span>{errors.newPassword.message}</span>
-                }
-            </div>
-
-            <div>
-                <label htmlFor="confirmNewPassword">Confirmar nova senha</label>
-                <input
+                
+                <TextField
+                    label="Confirmar nova senha"
                     type="password"
-                    id="confirmNewPassword"
                     {...register("confirmNewPassword")}
+                    error={errors.confirmNewPassword?.message}
                 />
-                {errors.confirmNewPassword &&
-                    <span>{errors.confirmNewPassword.message}</span>
-                }
-            </div>
 
-            {resetPassword.isError && (
-                <ApiErrorDisplay
-                    error={resetPassword.error}
-                    fallbackMessage="Não foi possível redefinir sua senha"
-                />
-            )}
-            
-            <button
-                type="submit"
-                disabled={resetPassword.isPending}
-            >
-                {resetPassword.isPending ? "Redefinindo..." : "Redefinir senha"}
-            </button>
-            
-        </form>
+                {resetPassword.isError && (
+
+                    <StatusMessage type="error">
+                        <ApiErrorDisplay
+                            error={resetPassword.error}
+                            fallbackMessage="Não foi possível redefinir sua senha"
+                        />
+                    </StatusMessage>
+                    
+                )}
+                
+                <Button
+                    type="submit"
+                    disabled={resetPassword.isPending}
+                    className={sharedStyle.submitButton}
+                >
+                    {resetPassword.isPending ? "Redefinindo..." : "Redefinir senha"}
+                </Button>
+                
+            </form>
+        </AuthLayout>
     )
 }

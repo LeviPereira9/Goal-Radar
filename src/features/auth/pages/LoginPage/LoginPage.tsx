@@ -9,6 +9,7 @@ import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
 import styles from "./LoginPage.module.css"
 import { AuthLayout } from "../../components/AuthLayout";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
+import sharedStyles from "@/shared/styles/shared.module.css";
 
 export function LoginPage(){
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ export function LoginPage(){
 
         {successMessage &&
             <StatusMessage type="success">
-                {successMessage}
+                <p>{successMessage}</p>
             </StatusMessage>
         }
         
@@ -71,7 +72,7 @@ export function LoginPage(){
             <Button
                 type="submit"
                 disabled={login.isPending}
-                className={styles.submitButton}
+                className={sharedStyles.submitButton}
                 >
                 {login.isPending ? "Entrando..." : "Entrar"}
             </Button>

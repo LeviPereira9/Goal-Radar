@@ -9,6 +9,7 @@ import { TextField } from "@/shared/components/TextField/TextField";
 import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
 import { Button } from "@/shared/components/Button/Button";
 import styles from "./RegisterPage.module.css";
+import sharedStyles from "@/shared/styles/shared.module.css";
 
 export function RegisterPage(){
     const navigate = useNavigate();
@@ -80,7 +81,7 @@ export function RegisterPage(){
                 <Button 
                     type="submit"
                     disabled={registerMutation.isPending}
-                    className={styles.submitButton}
+                    className={sharedStyles.submitButton}
                 > {registerMutation.isPending ? "Criando conta..." : "Criar conta"} </Button>
             </form>
 

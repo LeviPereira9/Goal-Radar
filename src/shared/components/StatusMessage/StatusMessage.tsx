@@ -17,8 +17,8 @@ const ROLE_BY_TYPE: Record<StatusType, "alert" | "status"> = {
 
 export function StatusMessage({type, children}: StatusMessageProps){
     return (
-        <p role={ROLE_BY_TYPE[type]} className={`${styles.message} ${styles[type]}`}>
+        <div role={ROLE_BY_TYPE[type]} className={`${styles.message} ${styles[type]}`}>
             {children}
-        </p>
+        </div>
     )
 }

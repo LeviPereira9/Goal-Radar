@@ -19,4 +19,5 @@
 .title {
     font-size: var(--font-size-xl);
     margin-bottom: var(--spacing-lg);
+    text-align: center;
 }
