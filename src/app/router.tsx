@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { LoginPage } from "@/features/auth/pages/LoginPage/LoginPage";
-import { RegisterPage } from "@/features/auth/pages/RegisterPage";
+import { RegisterPage } from "@/features/auth/pages/RegisterPage/RegisterPage";
 import { RequireAuth, RequireRole, RequireSelfOnly, RequireGuest, RequireSelfOrElevated } from "@/features/auth/components/guards";
 
 import { HomePage } from "./pages/HomePage";
