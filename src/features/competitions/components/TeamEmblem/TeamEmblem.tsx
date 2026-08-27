@@ -1,12 +1,13 @@
 import { useState } from "react";
+import styles from "./TeamEmblem.module.css";
 
 interface TeamEmblemProps {
     src?: string;
     teamName: string;
-    size?: number;
+    size?: "sm" | "md";
 }
 
-export function TeamEmblem({src, teamName, size = 24}: TeamEmblemProps){
+export function TeamEmblem({src, teamName, size = "sm"}: TeamEmblemProps){
 
     const [hasError, setHasError] = useState(false);
 
@@ -15,18 +16,9 @@ export function TeamEmblem({src, teamName, size = 24}: TeamEmblemProps){
     if(showFallback){
         return(
             <span
+                className={`${styles.emblem} ${styles.fallback} ${styles[size]}`}
                 role="img"
                 aria-label={teamName}
-                style={{
-                    display: "inline-block",
-                    width: size,
-                    height: size,
-                    borderRadius: "50%",
-                    background: "#ddd",
-                    textAlign: "center",
-                    lineHeight: `${size}px`,
-                    fontSize: size * 0.5,
-                }}
             >
                 {teamName.charAt(0).toUpperCase()}
             </span>
@@ -35,10 +27,9 @@ export function TeamEmblem({src, teamName, size = 24}: TeamEmblemProps){
     
     return (
         <img
+            className={`${styles.emblem} ${styles[size]}`}
             src={src}
             alt={teamName}
-            width={size}
-            height={size}
             onError={() => setHasError(true)}
         />
     )

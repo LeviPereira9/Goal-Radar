@@ -1,6 +1,6 @@
 import type { Match } from "../types/match";
 import { ProbabilityInsightDisplay } from "./ProbabilityInsight";
-import { TeamEmblem } from "./TeamEmblem";
+import { TeamEmblem } from "./TeamEmblem/TeamEmblem";
 
 interface MatchCardProps{
     match: Match;

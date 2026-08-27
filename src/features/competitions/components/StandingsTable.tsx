@@ -1,5 +1,5 @@
 import { useStandings } from "../hooks/useStandings";
-import { TeamEmblem } from "./TeamEmblem";
+import { TeamEmblem } from "./TeamEmblem/TeamEmblem";
 
 interface StandingsTableProps {
     competitionId: number;
