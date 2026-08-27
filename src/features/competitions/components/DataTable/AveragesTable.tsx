@@ -26,10 +26,10 @@ export function AveragesTable({competitionId}: AveragesTableProps){
                 {data.averages.map((team) => (
                     <tr key={team.teamName}>
                         <td className={styles.teamCell} >{team.teamName}</td>
-                        <td>{team.avgGoalsForHome / 100}</td>
-                        <td>{team.avgGoalsAgainstHome / 100}</td>
-                        <td>{team.avgGoalsForAway / 100}</td>
-                        <td>{team.avgGoalsAgainstAway / 100}</td>
+                        <td className={styles.numCell} >{team.avgGoalsForHome / 100}</td>
+                        <td className={styles.numCell}>{team.avgGoalsAgainstHome / 100}</td>
+                        <td className={styles.numCell}>{team.avgGoalsForAway / 100}</td>
+                        <td className={styles.numCell}>{team.avgGoalsAgainstAway / 100}</td>
                     </tr>
 
                 ))}

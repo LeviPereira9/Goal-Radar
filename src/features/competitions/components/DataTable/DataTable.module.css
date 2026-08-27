@@ -31,3 +31,7 @@
 .pointsCell {
     font-weight: 700;
 }
+
+.numCell {
+    text-align: center;
+}
