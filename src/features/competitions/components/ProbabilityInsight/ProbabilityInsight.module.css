@@ -1,0 +1,88 @@
+.wrapper{
+    padding: var(--spacing-sm) 0;
+    border-top: 1px solid var(--color-border);
+}
+
+.wrapper:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--spacing-xs);
+}
+
+.label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary)
+}
+
+.percentage {
+    font-size: var(--font-size-lg);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+
+.bar {
+    height: 6px;
+    border-radius: 3px;
+    background-color: var(--color-border);
+    overflow: hidden;
+    margin-bottom: var(--spacing-xs);
+}
+
+.barFill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.3s ease;
+}
+
+.insightLabel {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+/* Cores por nível de icidência */
+[data-level="low"] .percentage,
+[data-level="low"] .insightLabel{
+    color: var(--color-incidence-low);
+}
+
+[data-level="low"] .barFill{
+    background-color: var(--color-incidence-low);
+}
+
+[data-level="moderate"] .percentage,
+[data-level="moderate"] .insightLabel {
+    color: var(--color-incidence-moderate);
+}
+
+[data-level="moderate"] .barFill {
+    background-color: var(--color-incidence-moderate);
+}
+
+[data-level="high"] .percentage,
+[data-level="high"] .insightLabel{
+    color: var(--color-incidence-high);
+}
+
+[data-level="high"] .barFill {
+    background-color: var(--color-incidence-high);
+}
+
+[data-level="very-high"] .percentage,
+[data-level="very-high"] .insightLabel {
+    color: var(--color-incidence-very-high);
+}
+[data-level="very-high"] .barFill {
+    background-color: var(--color-incidence-very-high);
+}
