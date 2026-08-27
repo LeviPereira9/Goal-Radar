@@ -1,14 +1,8 @@
 .wrapper {
-    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: var(--spacing-lg);
-    background: linear-gradient(
-        180deg,
-        color-mix(in srgb, var(--color-primary) 6%, var(--color-bg)) 0%,
-        var(--color-bg) 100%
-    );
 }
 
 .card {

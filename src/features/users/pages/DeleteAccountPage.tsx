@@ -3,24 +3,21 @@ import { useMe } from "@/features/auth/hooks/useMe";
 import { useDeleteAccount } from "../hooks/useDeleteAccount";
 import { isSelf as checkIsSelf } from "@/shared/lib/rbac";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
+import { UserActionLayout } from "../components/UserActionLayout/UserActionLayout";
+import { Button } from "@/shared/components/Button/Button";
+import { useState } from "react";
+import { Drawer } from "@/shared/components/Drawer/Drawer";
 
 export function DeleteAccountPage(){
     const {username} = useParams<{username: string}>();
     const {data: currentUser} = useMe();
     const navigate = useNavigate();
     const deleteAccount = useDeleteAccount(username!);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
     const isSelf = !!currentUser && !!username && checkIsSelf(currentUser.username, username);
 
-    const handleDelete = () => {
-        const confirmed = window.confirm(
-            isSelf
-            ? "Tem certeza que deseja desativar sua conta? Essa ação não pode ser desfeita."
-            : `Tem certeza que deseja desativar a cnta de ${username}?`
-        );
-
-        if(!confirmed) return;
-
+    const handleConfirm = () => {
         deleteAccount.mutate(
             {isSelf},
             {
@@ -34,15 +31,14 @@ export function DeleteAccountPage(){
     }
     
     return (
-        <div>
-            <h1>Desativar conta</h1>
-            <p>
-                {isSelf 
-                ? "Ao desativar usa conta, você perderá o acesso ao sistema."
+        <UserActionLayout
+            title="Desativar a conta"
+            description={
+                isSelf
+                ? "Ao desativar sua conta, você perderá o acesso ao sistema."
                 : `Você está prestes a desativar a conta de ${username}.`
             }
-            </p>
-
+        >
             {deleteAccount.isError && (
                 <ApiErrorDisplay
                     error={deleteAccount.error}
@@ -50,10 +46,33 @@ export function DeleteAccountPage(){
                 />
             )}
             
-            <button onClick={handleDelete} disabled={deleteAccount.isPending} >
-                {deleteAccount.isPending ? "Desativando..." : "Desativar conta"}
-            </button>
-            
-        </div>
+            <Button 
+                variant="danger"
+                onClick={() => setIsConfirmOpen(true)}>
+                Desativar conta
+            </Button>
+
+            <Drawer
+                isOpen={isConfirmOpen}
+                onClose={() => setIsConfirmOpen(false)}
+                title="Confirmar desativação"
+            >
+                <p>
+                    {isSelf
+                        ? "Tem certeza que deseja desativar sua conta? Essa ação não pode ser desfeita"
+                        : `Tem certeza que deseja desativar a conta de ${username}?`
+                    }
+                </p>
+                <div style={{ display: 'flex', gap: 'var(--spacing-sm)', marginTop: 'var(--spacing-lg)' }}>
+                    <Button
+                        variant="danger"
+                        onClick={handleConfirm}
+                        disabled={deleteAccount.isPending}
+                    >
+                        {deleteAccount.isPending ? "Desativando..." : "Sim, desativar"}
+                    </Button>
+                </div>
+            </Drawer>
+        </UserActionLayout>
     )
 }

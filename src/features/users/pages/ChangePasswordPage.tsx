@@ -4,6 +4,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { passwordSchema, type PasswordFormData } from "../types/passwordSchema"; 
 import { useUpdatePassword } from "../hooks/useUpdatePassword";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
+import { UserActionLayout } from "../components/UserActionLayout/UserActionLayout";
+import { TextField } from "@/shared/components/TextField/TextField";
+import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
+import { Button } from "@/shared/components/Button/Button";
 
 export function ChangePasswordPage(){
     const { username } = useParams<{username: string}>();
@@ -30,52 +34,43 @@ export function ChangePasswordPage(){
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Alterar senha</h1>
-
-            <div>
-                <label htmlFor="currentPassword">Senha atual</label>
-                <input
-                    type="password" id="currentPassword"
-                    {...register("currentPassword")}
-                />
-                {errors.currentPassword && 
-                    <span>{errors.currentPassword.message}</span>
-                }
-            </div>
-
-            <div>
-                <label htmlFor="newPassword">Nova senha</label>
-                <input
-                    type="password"
-                    id="newPassword"
-                    {...register("newPassword")}
-                />
-                {errors.newPassword && 
-                    <span>{errors.newPassword.message}</span>
-                }
-            </div>
-
-            <div>
-                <label htmlFor="confirmNewPassword">Confirmar nova senha</label>
-                <input
-                type="password"
-                id="confirmNewPassword"
-                {...register("confirmNewPassword")}
-                 />
-                {errors.confirmNewPassword &&
-                    <span>{errors.confirmNewPassword.message}</span>
-                }
-            </div>
+        <UserActionLayout title="Alterar senha">
             
-            {updatePassword.isError && (
-                <ApiErrorDisplay error={updatePassword.error} fallbackMessage="Não foi possível alterar sua senha" />
-            )}
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <TextField
+                        label="Senha atual"
+                        type="password"
+                        {...register("currentPassword")}
+                        error={errors.currentPassword?.message}
+                    />
             
-            <button type="submit" disabled={updatePassword.isPending}>
-                {updatePassword.isPending ? "Salvando..." : "Alterar senhaa"}
-            </button>
+                    <TextField
+                        label="Nova senha"
+                        type="password"
+                        {...register("newPassword")}
+                        error={errors.newPassword?.message}
+                    />
             
-        </form>
+                    <TextField
+                        label="Confirmar nova senha"
+                        type="password"
+                        {...register("confirmNewPassword")}
+                        error={errors.confirmNewPassword?.message}
+                    />
+            
+                    {updatePassword.isError && (
+                        <StatusMessage type="error" >
+                            <ApiErrorDisplay error={updatePassword.error} fallbackMessage="Não foi possível alterar sua senha" />
+                        </StatusMessage>
+                    )}
+            
+                    <Button
+                        type="submit"
+                        disabled={updatePassword.isPending}>
+                        {updatePassword.isPending ? "Salvando..." : "Alterar senha"}
+                    </Button>
+            
+                </form>
+        </UserActionLayout>
     )
 }

@@ -5,6 +5,7 @@ import { EmailNotVerified } from "../components/EmailNotVerified";
 import { RequestEmailForm } from "../components/RequestEmailForm";
 import { ConfirmEmailForm } from "../components/ConfirmEmailForm";
 import { EmailChangeDone } from "../components/EmailChangeDone";
+import { UserActionLayout } from "../components/UserActionLayout/UserActionLayout";
 
 type Step = "request" | "confirm" | "done";
 
@@ -15,23 +16,26 @@ export function ChangeEmailPage(){
     const detailsQuery = useUserDetails(username!);
     
     if(detailsQuery.isLoading){
-        return <div>Carregando...</div>
+        return <UserActionLayout title="Alterar e-mail">Carregando...</UserActionLayout>
     }
     
     if(detailsQuery.isError || !detailsQuery.data){
-        return <div>Não foi possível carregar seus dados.</div>
+        return <UserActionLayout title="Alterar e-mail">Não foi possível carregar seus dados.</UserActionLayout>
     }
 
     if(!detailsQuery.data.verified){
-        return <EmailNotVerified username={username!}/>;
+        return (
+            <UserActionLayout title="Alterar e-mail" >
+                <EmailNotVerified username={username!}/>
+            </UserActionLayout>
+        );
     }
 
-    switch (step) {
-        case "confirm":
-            return <ConfirmEmailForm username={username!} onConfirmed={()=> setStep("done")}/>
-        case "done":
-            return <EmailChangeDone/>
-        default:
-            return <RequestEmailForm username={username!} onRequested={()=> setStep("confirm")} />
-    }
+    return (
+        <UserActionLayout title="Alterar e-mail">
+            {step === 'confirm' && <ConfirmEmailForm username={username!} onConfirmed={() => setStep('done')} />}
+            {step === 'done' && <EmailChangeDone />}
+            {step === 'request' && <RequestEmailForm username={username!} onRequested={() => setStep('confirm')} />}
+        </UserActionLayout>
+    )
 }

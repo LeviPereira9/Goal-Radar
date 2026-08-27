@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import { useMe } from "@/features/auth/hooks/useMe"
 import { useUserDetails, useUserShortProfile } from "../hooks/useUserProfile"
 import { isSelf as checkIsSelf, isSelfOrElevated } from "@/shared/lib/rbac"
-import { ProfileReadOnly } from "../components/ProfileReadOnly"
+import { ProfileReadOnly } from "../components/ProfileDetailsView/ProfileReadOnly"
 import { EditableProfile } from "../components/EditableProfile"
 
 export function UserProfilePage() {

@@ -3,6 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { emailConfirmSchema, type EmailConfirmFormData } from "../types/emailConfirmSchema";
 import { useConfirmEmailChange } from "../hooks/useConfirmEmailChange";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
+import { TextField } from "@/shared/components/TextField/TextField";
+import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
+import { Button } from "@/shared/components/Button/Button";
+import sharedStyles from "@/shared/styles/shared.module.css";
 
 interface ConfirmEmailFormProps {
     username: string;
@@ -24,34 +28,33 @@ export function ConfirmEmailForm({username, onConfirmed} : ConfirmEmailFormProps
     };
 
     return(
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Confirme a alteração</h1>
-            <p>Enviamos um código para o seu e-mail atual. Informe-o abaixo para concluir a troca.</p>
+        <div>
+            <p style={{ color: 'var(--color-text-secondary)', fontSize: 'var(--font-size-sm)', marginBottom: '16px' }}>Enviamos um código para o seu e-mail atual. Informe-o abaixo para concluir a troca.</p>
+            <form onSubmit={handleSubmit(onSubmit)}>
 
-            <div>
-                <label htmlFor="code">Código</label>
-                <input
+                <TextField
+                    label="Código"
                     type="text"
-                    id="code"
                     {...register("code")}
+                    error={errors.code?.message}
                 />
-                {errors.code &&
-                    <span>{errors.code.message}</span>
-                }
-            </div>
-
-            {confirmEmailChange.isError && (
-                <ApiErrorDisplay
-                    error={confirmEmailChange.error}
-                    fallbackMessage="Código inválido."
-                />
-            )}
-
-            <button
-                type="submit"
-                disabled={confirmEmailChange.isPending}
-            > {confirmEmailChange.isPending ? "Confirmando...": "Confirmar"} </button>
-        </form>
+                
+                {confirmEmailChange.isError && (
+                    <StatusMessage type="error">
+                        <ApiErrorDisplay
+                        error={confirmEmailChange.error}
+                        fallbackMessage="Código inválido."
+                    />
+                    </StatusMessage>
+                )}
+                <div className={sharedStyles.center}>
+                    <Button
+                        type="submit"
+                        disabled={confirmEmailChange.isPending}
+                    > {confirmEmailChange.isPending ? "Confirmando...": "Confirmar"} </Button>
+                </div>
+            </form>
+        </div>
     )
     
 }

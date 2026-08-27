@@ -1,8 +1,7 @@
+import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
+
 export function EmailChangeDone(){
-    return(
-        <div>
-            <h1>E-mail atualizado</h1>
-            <p>Seu e-mail foi alterado com sucesso.</p>
-        </div>
-    )
+    return <StatusMessage type="success">
+        Seu e-mail foi alterado com sucesso.
+    </StatusMessage>
 }

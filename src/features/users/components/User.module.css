@@ -1,0 +1,9 @@
+.warn{
+    background-color: color-mix(in srgb, var(--color-warning) 12%, white);
+    color: var(--color-warning);
+    text-align: center;
+    padding: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-lg);
+}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { UserProfile } from "../types/user";
-import { ProfileDetailsView } from "./ProfileDetailsView";
-import { ProfileEditForm } from "./ProfileEditForm";
+import { ProfileDetailsView } from "./ProfileDetailsView/ProfileDetailsView";
+import { ProfileEditForm } from "./ProfileDetailsView/ProfileEditForm";
 
 interface EditableProfileProps {
     profile: UserProfile;

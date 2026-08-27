@@ -25,14 +25,15 @@ export function VerifyAccountPage(){
         resolver: zodResolver(verifyCodeSchema)
     })
 
-    if(isLoading) return <div>Carregando...</div>
+    if(isLoading) return <AuthLayout title="Verificar conta">Carregando...</AuthLayout>
 
     if(profile?.verified){
         return(
-            <div>
-                <h1>Conta verificada</h1>
-                <p>Sua conta já está verificada</p>
-            </div>
+            <AuthLayout title="Conta verificada">
+                <StatusMessage type="success">
+                    Sua conta ja está vericada
+                </StatusMessage>
+            </AuthLayout>
         )
     }
 
@@ -78,14 +79,17 @@ export function VerifyAccountPage(){
                 </form>
             )}
 
-            <button 
-                onClick={() => resendConfirmation.mutate()}
-                disabled={resendConfirmation.isPending}
-            >
-                {resendConfirmation.isPending ? "Enviando..." : "Reenviar código"}
-            </button>
+            <div className={sharedStyle.center}>
+                <Button
+                    variant="ghost"
+                    onClick={() => resendConfirmation.mutate()}
+                    disabled={resendConfirmation.isPending}
+                >
+                    {resendConfirmation.isPending ? "Enviando..." : "Reenviar código"}
+                </Button>
+            </div>
             {resendConfirmation.isSuccess &&
-                <p role="status" >Código reenviado</p>
+                <StatusMessage type="success" >Código reenviado</StatusMessage>
             }
         </AuthLayout>
     )

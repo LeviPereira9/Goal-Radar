@@ -4,6 +4,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { emailSchema, type EmailFormData } from "../types/emailSchema";
 import { useRequestEmailChange } from "../hooks/useRequestEmailChange";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
+import { UserActionLayout } from "./UserActionLayout/UserActionLayout";
+import { TextField } from "@/shared/components/TextField/TextField";
+import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
+import { Button } from "@/shared/components/Button/Button";
+import sharedStyles from "@/shared/styles/shared.module.css";
 
 interface RequestEmailFormProps{
     username: string;
@@ -25,30 +30,29 @@ export function RequestEmailForm({username, onRequested}: RequestEmailFormProps)
     }
     
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <h1>Alterar e-mail</h1>
-
-            <div>
-                <label htmlFor="newEmail">Novo e-mail</label>
-                <input
+        <UserActionLayout title="Alterar e-mail">
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <TextField
+                    label="Novo e-mail"
                     type="email"
-                    id="newEmail"
                     {...register("newEmail")}
+                    error={errors.newEmail?.message}
                 />
-                {errors.newEmail &&
-                    <span>{errors.newEmail.message}</span>
-                }
-            </div>
-
-            {requestEmailChange.isError && (
-                <ApiErrorDisplay error={requestEmailChange.error}
-                fallbackMessage="Não foi possível solicitar a alteração de e-mail"
-                />
-            )}
-
-            <button type="submit" disabled={requestEmailChange.isPending}>
-                {requestEmailChange.isPending ? "Enviando..." : "Enviar código de confirmação"}
-            </button>
-        </form>
+                
+                {requestEmailChange.isError && (
+                    <StatusMessage type="error">
+                        <ApiErrorDisplay
+                            error=     {requestEmailChange.error}
+                        fallbackMessage="Não foi possível solicitar a alteração de e-mail"
+                    />
+                    </StatusMessage>
+                )}
+                <div className={sharedStyles.center} >
+                    <Button type="submit" disabled={requestEmailChange.isPending}>
+                        {requestEmailChange.isPending ? "Enviando..." : "Enviar código"}
+                    </Button>
+                </div>
+            </form>
+        </UserActionLayout>
     )
 }
