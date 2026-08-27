@@ -12,6 +12,9 @@
     background-color: var(--color-surface);
     width: 100%;
     max-width: 480px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     box-shadow: var(--shadow-md);
     animation: slideIn 0.2s ease;
 }
