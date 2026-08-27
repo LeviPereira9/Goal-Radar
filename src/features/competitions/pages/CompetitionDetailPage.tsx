@@ -6,7 +6,7 @@ import { MatchCard } from "../components/MatchCard/MatchCard";
 import { StandingsTable } from "../components/DataTable/StandingsTable";
 import { AveragesTable } from "../components/DataTable/AveragesTable";
 import { Drawer } from "@/shared/components/Drawer/Drawer";
-import { ResponsibleGamingNotice } from "@/shared/components/ResponsibleGamingNotice";
+import { ResponsibleGamingNotice } from "@/shared/components/ResponsibleGamingNotice/ResponsibleGamingNotice";
 import { FavoriteButton } from "@/features/favorites/components/FavoriteButton";
 
 export function CompetitionDetailPage(){
