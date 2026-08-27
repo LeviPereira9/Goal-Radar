@@ -7,6 +7,7 @@ import styles from "./Header.module.css";
 import { hasMinimumRole } from "@/shared/lib/rbac";
 import { Role } from "@/shared/types";
 import { Button } from "@/shared/components/Button/Button";
+import { UserAvatar } from "@/shared/components/UserAvatar/UserAvatar";
 
 export function Header(){
     const {data: currentUser} = useMe();
@@ -63,8 +64,15 @@ export function Header(){
                             <>
                                 <Link
                                     to={`/users/${currentUser.username}`}
-                                    className={styles.username}
-                                >{currentUser.username}</Link>
+                                    className={styles.userLink}
+                                >
+                                    <UserAvatar
+                                        src={profile?.profilePicture}
+                                        username={currentUser.username}
+                                        size="sm"
+                                    />
+                                    <span className={styles.username}>{currentUser.username}</span>
+                                </Link>
                                 <Button
                                     variant="ghost"
                                     onClick={() => logout.mutate()}

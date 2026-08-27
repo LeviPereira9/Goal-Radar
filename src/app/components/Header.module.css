@@ -127,3 +127,17 @@ summary {
     font-weight: 600;
     text-decoration: underline  ;
 }
+
+.userLink{
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: va(--color-text);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+}
+
+.userLink:hover{
+    text-decoration: none;
+    color: var(--color-primary);
+}
