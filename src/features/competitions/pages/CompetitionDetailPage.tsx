@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCompetitionDetail } from "../hooks/useCompetitionDetail";
 import { useMatches } from "../hooks/useMatches";
-import { MatchCard } from "../components/MatchCard";
+import { MatchCard } from "../components/MatchCard/MatchCard";
 import { StandingsTable } from "../components/StandingsTable";
 import { AveragesTable } from "../components/AveragesTable";
 import { Drawer } from "@/shared/components/Drawer/Drawer";
