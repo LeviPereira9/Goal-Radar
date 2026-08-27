@@ -1,6 +1,7 @@
 import { useMe } from "@/features/auth/hooks/useMe";
 import { useFavorites } from "../hooks/useFavorites";
 import { useAddFavorite, useRemoveFavorite } from "../hooks/useToggleFavorite";
+import { Button } from "@/shared/components/Button/Button";
 
 interface FavoriteButtonProps {
     codeId: number;
@@ -34,11 +35,12 @@ export function FavoriteButton({codeId}: FavoriteButtonProps){
     }
     
     return (
-        <button
+        <Button
+            variant={existingFavorite ? "secondary" : "primary"}
             onClick={handleToggle}
             disabled={isPending}
         >
             {existingFavorite ? "Favoritado" : "Favoritar"}
-        </button>
+        </Button>
     )
 }
