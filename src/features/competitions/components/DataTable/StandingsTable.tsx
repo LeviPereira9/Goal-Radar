@@ -1,5 +1,6 @@
-import { useStandings } from "../hooks/useStandings";
-import { TeamEmblem } from "./TeamEmblem/TeamEmblem";
+import { useStandings } from "../../hooks/useStandings";
+import { TeamEmblem } from "../TeamEmblem/TeamEmblem";
+import styles from "./DataTable.module.css";
 
 interface StandingsTableProps {
     competitionId: number;
@@ -12,7 +13,7 @@ export function StandingsTable({competitionId}: StandingsTableProps){
     if(isError || !data) return <p>Não foi possível carregar a classificação.</p>
 
     return(
-        <table>
+        <table className={styles.table} >
             <thead>
                 <tr>
                     <th>#</th>
@@ -29,7 +30,7 @@ export function StandingsTable({competitionId}: StandingsTableProps){
                 {data.standings.map((team) => (
                     <tr key={team.teamId}>
                         <td>{team.position}</td>
-                        <td>
+                        <td className={styles.teamCell} >
                             <TeamEmblem
                                 src={team.emblem}
                                 teamName={team.teamShortName}
@@ -41,7 +42,7 @@ export function StandingsTable({competitionId}: StandingsTableProps){
                         <td>{team.draw}</td>
                         <td>{team.lost}</td>
                         <td>{team.goalDifference}</td>
-                        <td>{team.points}</td>
+                        <td className={styles.pointsCell}>{team.points}</td>
                     </tr>
                 ))}
             </tbody>

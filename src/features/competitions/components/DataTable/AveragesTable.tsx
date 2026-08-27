@@ -1,4 +1,5 @@
-import { useAverages } from "../hooks/useAverages";
+import { useAverages } from "../../hooks/useAverages";
+import styles from "./DataTable.module.css";
 
 interface AveragesTableProps {
     competitionId: number;
@@ -11,7 +12,7 @@ export function AveragesTable({competitionId}: AveragesTableProps){
     if(isError || !data) return <p>Não foi possível carregar as médias.</p>
 
     return (
-        <table>
+        <table className={styles.table} >
             <thead>
                 <tr>
                     <th>Time</th>
@@ -24,7 +25,7 @@ export function AveragesTable({competitionId}: AveragesTableProps){
             <tbody>
                 {data.averages.map((team) => (
                     <tr key={team.teamName}>
-                        <td>{team.teamName}</td>
+                        <td className={styles.teamCell} >{team.teamName}</td>
                         <td>{team.avgGoalsForHome / 100}</td>
                         <td>{team.avgGoalsAgainstHome / 100}</td>
                         <td>{team.avgGoalsForAway / 100}</td>
