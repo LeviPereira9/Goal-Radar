@@ -1,0 +1,70 @@
+.wrapper{
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.title{
+    text-align: center;
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.formCard {
+    margin-bottom: var(--spacing-lg);
+}
+
+.formTitle{
+    text-align: center;
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formButton{
+    display: flex;
+    justify-content: center;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-weight: 600;
+}
+
+.code {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}
+
+.inactiveTag {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-warning);
+    background-color: color-mix(in srgb, var(--color-warning) 12%, white );
+    padding: 2px var(--spacing-sm);
+    border-radius: var(--radius-sm); 
+}
+
+.confirmActions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
