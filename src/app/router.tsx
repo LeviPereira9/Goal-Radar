@@ -21,7 +21,7 @@ import { ResetPasswordPage } from "@/features/auth/pages/ResetPasswordPage";
 import { UserSearchPage } from "@/features/users/pages/UserSearchPage/UserSearchPage";
 import { ManageRolesPage } from "@/features/admin/pages/ManageRolesPage/ManageRolesPage"; 
 import { ManageCompetitionCodesPage } from "@/features/admin/pages/ManageCompetitionCodesPage/ManageCompetitionCodesPage"; 
-import { SyncPage } from "@/features/admin/pages/SyncPage";
+import { SyncPage } from "@/features/admin/pages/SyncPage/SyncPage"; 
 import { CompetitionsListPage } from "@/features/competitions/pages/CompetitionsListPage/CompetitionsListPage"; 
 import { CompetitionDetailPage } from "@/features/competitions/pages/CompetitionDetailPage/CompetitionDetailPage";
 
