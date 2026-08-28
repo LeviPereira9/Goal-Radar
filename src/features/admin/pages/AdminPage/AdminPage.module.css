@@ -1,0 +1,34 @@
+.title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.link:hover{
+    text-decoration: none;
+}
+
+.card {
+    height: 100%;
+    transition: border-color 0.15s ease;
+}
+
+.link:hover .card {
+    border-color: var(--color-primary);
+}
+
+.cardTitle {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-xs);
+}
+
+.cardDescription {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+}

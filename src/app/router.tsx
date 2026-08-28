@@ -8,7 +8,7 @@ import { ForbiddenPage } from "./pages/ForbiddenPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { FavoritesPage } from "@/features/favorites/pages/FavoritesPage";
 import { UserProfilePage } from "@/features/users/pages/UserProfilePage";
-import { AdminPage } from "@/features/admin/pages/AdminPage";
+import { AdminPage } from "@/features/admin/pages/AdminPage/AdminPage";
 
 import { Role } from "@/shared/types";
 import { ChangePasswordPage } from "@/features/users/pages/ChangePasswordPage";
