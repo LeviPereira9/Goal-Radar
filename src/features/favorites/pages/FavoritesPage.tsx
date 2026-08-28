@@ -2,6 +2,9 @@ import { Link } from "react-router-dom"
 import { useMe } from "@/features/auth/hooks/useMe"
 import { useFavorites } from "../hooks/useFavorites"
 import { useRemoveFavorite } from "../hooks/useToggleFavorite"
+import styles from "./FavoritesPage.module.css";
+import { Card } from "@/shared/components/Card/Card";
+import { Button } from "@/shared/components/Button/Button";
 
 export function FavoritesPage() {
   const {data: currentUser} = useMe();
@@ -20,34 +23,38 @@ export function FavoritesPage() {
   
   if(data.favorites.length === 0){
     return (
-      <div>
-        <h1>Favoritos</h1>
-        <p>Você ainda não favoritou nenhuma competição.</p>
+      <div className={styles.empty} >
+        <h1 className={styles.title} >Favoritos</h1>
+        <p className={styles.emptyText} >Você ainda não favoritou nenhuma competição.</p>
         <Link to="/competitions" >Ver competições</Link>
       </div>
     )
   }
   
   return (
-    <div>
-      <h1>Favoritos</h1>
-      <ul>
+    <div className={styles.wrapper}>
+      <h1 className={styles.title}>Favoritos</h1>
+      <div className={styles.list}>
         {data.favorites.map((favorite) => (
-          <li key={favorite.favoriteId}>
+          <Card className={styles.item} key={favorite.favoriteId}>
             <Link
               to={`/competitions/${favorite.code}`}
-            >{favorite.codeName}
+              className={styles.link}
+            >
+              <span className={styles.name} >{favorite.codeName}</span>
+              <span className={styles.code} >{favorite.code}</span>
             </Link>
-            <button
+            <Button
+              variant="secondary"
               onClick={() => removeFavorite.mutate(favorite.favoriteId)}
               disabled={removeFavorite.isPending}
             >
               Remover
-            </button>
+            </Button>
 
-          </li>
+          </Card>
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
