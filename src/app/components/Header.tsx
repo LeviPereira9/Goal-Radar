@@ -2,17 +2,16 @@ import { Link, NavLink } from "react-router-dom";
 import { useMe } from "@/features/auth/hooks/useMe";
 import { useMyDetails } from "@/features/auth/hooks/useMyDetails";
 import { useLogout } from "@/features/auth/hooks/useLogout";
-import { useCompetitions } from "@/features/competitions/hooks/useCompetitions";
 import styles from "./Header.module.css";
 import { hasMinimumRole } from "@/shared/lib/rbac";
 import { Role } from "@/shared/types";
 import { Button } from "@/shared/components/Button/Button";
 import { UserAvatar } from "@/shared/components/UserAvatar/UserAvatar";
+import { CompetitionsDropdown } from "./CompetitionsDropdown";
 
 export function Header(){
     const {data: currentUser} = useMe();
     const {data: profile} = useMyDetails();
-    const {data: competitions} = useCompetitions();
     const logout = useLogout();
 
     const isMod = !!currentUser && hasMinimumRole(currentUser.role, Role.MOD);
@@ -27,22 +26,7 @@ export function Header(){
                         className={styles.logo}
                     >Goal Radar</Link>
                     <nav className={styles.nav}>
-                        <details className={styles.dropdown}>
-                            <summary>Competições</summary>
-                            <div className={styles.dropdownMenu}>
-                                {competitions?.codes.map((c) => (
-                                    <Link
-                                        key={c.id}
-                                        to={`/competitions/${c.code}`}
-                                    >{c.name}</Link>
-                                ))}
-                                <Link
-                                    to={"/competitions"}
-                                    className={styles.dropdownAll}
-                                >Ver todas</Link>
-                            </div>
-                        </details>
-
+                        <CompetitionsDropdown/>
                         <NavLink
                             to={"/search"}
                             className={({isActive}) => (isActive ? styles.active : undefined)}
