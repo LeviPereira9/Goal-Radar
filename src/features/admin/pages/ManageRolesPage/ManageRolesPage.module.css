@@ -1,0 +1,19 @@
+.wrapper {
+    max-width: 480px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-lg);
+}
+
+.card {
+    padding: var(--spacing-lg);
+}
+
+.returnButton {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-sm);
+}

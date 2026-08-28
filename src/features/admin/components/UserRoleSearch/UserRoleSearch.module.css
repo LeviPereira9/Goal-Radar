@@ -1,0 +1,32 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    transition: border-color 0.15s ease
+}
+
+.item:hover,
+.item:focus-visible {
+    border-color: var(--color-primary);
+    outline: none;
+}
+
+.username {
+    display: block;
+    font-weight: 600;
+}
+
+.role {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary)
+}

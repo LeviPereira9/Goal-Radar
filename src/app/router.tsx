@@ -19,7 +19,7 @@ import { VerifyAccountPage } from "@/features/auth/pages/VerifyAccountPage";
 import { ForgotPasswordPage } from "@/features/auth/pages/ForgotPasswordPage";
 import { ResetPasswordPage } from "@/features/auth/pages/ResetPasswordPage";
 import { UserSearchPage } from "@/features/users/pages/UserSearchPage/UserSearchPage";
-import { ManageRolesPage } from "@/features/admin/pages/ManageRolesPage";
+import { ManageRolesPage } from "@/features/admin/pages/ManageRolesPage/ManageRolesPage"; 
 import { ManageCompetitionCodesPage } from "@/features/admin/pages/ManageCompetitionCodesPage";
 import { SyncPage } from "@/features/admin/pages/SyncPage";
 import { CompetitionsListPage } from "@/features/competitions/pages/CompetitionsListPage/CompetitionsListPage"; 

@@ -6,6 +6,9 @@ import { canModifyRole } from "@/shared/lib/rbac";
 import { ApiErrorDisplay } from "@/shared/components/ApiErrorDisplay";
 import type { UserShortProfile } from "@/features/users/types/user";
 import { Role } from "@/shared/types";
+import styles from "./RoleChangeForm.module.css";
+import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
+import { Button } from "@/shared/components/Button/Button";
 
 interface RoleChangeFormProps {
     targetUser: UserShortProfile;
@@ -16,7 +19,7 @@ export function RoleChangeForm({targetUser, onDone}: RoleChangeFormProps){
     const { data: currentUser } = useMe();
     const { data: rolesData } = useRoles();
     const modifyRole = useModifyRole(targetUser.username);
-    const [selectedRole, setSelectedRole] = useState<Role>(Role.USER);
+    const [selectedRole, setSelectedRole] = useState<Role | "">("");
 
     if(!currentUser || !rolesData){
         return <p>Carregando...</p>
@@ -36,46 +39,52 @@ export function RoleChangeForm({targetUser, onDone}: RoleChangeFormProps){
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>
-                Alterar cargo de {targetUser.username} (atual: {targetUser.role})
+        <form onSubmit={handleSubmit} className={styles.form} >
+            <h2 className={styles.title} >
+                Alterar cargo de <strong>{targetUser.username}</strong>
             </h2>
+            <p className={styles.currentRole}>Cargo atual: {targetUser.role}</p>
 
             {!canModifyThisUser ? (
-                <p>Você não têm permissão para alterar o cargo deste usuário.</p>
+                <StatusMessage type="warning">
+                    Você não têm permissão para alterar o cargo deste usuário.
+                </StatusMessage>
+            ): assignableRoles.length === 0 ? (
+                <StatusMessage type="warning">Você não têm permissão para atribuir nenhum cargo a este usuário.</StatusMessage>
             ):(
                 <>
-                {assignableRoles.length === 0 ? (
-                <p>Você não têm permissão para atribuir nenhum cargo a este usuário.</p>
-                ):(
-                    <>
-                        <select
-                            value={selectedRole}
-                            onChange={(e) => setSelectedRole(e.target.value as Role)}
-                        >
-                            {assignableRoles.map((role) => (
-                                <option key={role} value={role}>
-                                    {role}
-                                </option>
-                            ))}
-                        </select>
+                    <select
+                        className={styles.select}
+                        value={selectedRole}
+                        onChange={(e) => setSelectedRole(e.target.value as Role)}
+                    >
+                        <option value="">Selecione um cargo</option>
+                        {assignableRoles.map((role) => (
+                            <option
+                                key={role}
+                                value={role}
+                            >
+                                {role}
+                            </option>
+                        ))}
+                    </select>
 
-                        {modifyRole.isError && (
-                            <ApiErrorDisplay
-                                error={modifyRole.error}
-                                fallbackMessage="Não foi possível alterar o cargo"
-                            />
-                        )}
+                    {modifyRole.isError && (
+                        <ApiErrorDisplay
+                            error={modifyRole.error}
+                            fallbackMessage="Não foi possível alterar o cargo"
+                        />
+                    )}
 
-                        <button
+                    <div className={styles.center}>
+                        <Button
                             type="submit"
                             disabled={!selectedRole || modifyRole.isPending}
                         >
                             {modifyRole.isPending ? "Salvando..." : "Salvar"}
-                        </button>
-                        
-                    </>
-                )}
+                        </Button>
+                    </div>
+                    
                 </>
             )}
         </form>
