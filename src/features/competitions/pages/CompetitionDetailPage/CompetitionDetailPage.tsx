@@ -94,7 +94,10 @@ export function CompetitionDetailPage(){
 
             {hasMatchesWithoutProbability && (
                 <p role="note" className={styles.noProbabilityNotice}>
-                    Algumas partidas ainda não têm probabilidades calculadas, isso ocorre nas primeiras rodadas, enquanto  o sistema acumula dados suficentes da competição.
+                    {matchday < 3
+                    ? "Algumas partidas ainda não têm probabilidades calculadas, isso ocorre nas primeiras rodadas, enquanto  o sistema acumula dados suficentes da competição."
+                    : "Algumas partidas ainda não têm probabilidades calculadas. Isso pode ocorrer quando dependem de partidas adiadas ou de resultados que ainda não foram atualizados."
+                    }
                 </p>
             ) }
 
