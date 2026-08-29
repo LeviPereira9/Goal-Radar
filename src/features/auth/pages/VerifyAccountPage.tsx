@@ -10,9 +10,10 @@ import { TextField } from "@/shared/components/TextField/TextField";
 import { Button } from "@/shared/components/Button/Button";
 import sharedStyle from "@/shared/styles/shared.module.css";
 import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 export function VerifyAccountPage(){
-    const {data: profile, isLoading} = useMyDetails();
+    const {data: profile, isLoading, isError, refetch} = useMyDetails();
     const username = profile?.username ?? "";
 
     const confirmAccount = useConfirmAccount(username);
@@ -27,6 +28,8 @@ export function VerifyAccountPage(){
     })
 
     if(isLoading) return <AuthLayout title="Verificar conta"> <LoadingState/> </AuthLayout>
+
+    if(isError) return <ErrorState onRetry={refetch} />
 
     if(profile?.verified){
         return(

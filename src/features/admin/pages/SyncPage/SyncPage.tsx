@@ -6,9 +6,11 @@ import styles from "./SyncPage.module.css";
 import { Card } from "@/shared/components/Card/Card";
 import { Button } from "@/shared/components/Button/Button";
 import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 export function SyncPage(){
-    const {data} = useCompetitionCodes();
+    const {data, isLoading, refetch} = useCompetitionCodes();
     const startAllSyncs = useStartAllSyncs();
     const startSync = useStartSync();
     const [syncingCode, setSyncingCode] = useState<number | null>(null);
@@ -19,6 +21,10 @@ export function SyncPage(){
             onSettled: () => setSyncingCode(null)
         });
     };
+
+    if(isLoading) return <LoadingState/>
+    
+    if(!data) return <ErrorState onRetry={refetch} />
 
     return (
         <div className={styles.wrapper} >

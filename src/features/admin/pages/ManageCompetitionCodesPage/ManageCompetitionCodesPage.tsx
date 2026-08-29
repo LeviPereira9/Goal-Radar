@@ -11,9 +11,10 @@ import { Drawer } from "@/shared/components/Drawer/Drawer";
 import type { CompetitionCode } from "../../types/code";
 import { useState } from "react";
 import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 export function ManageCompetitionCodesPage(){
-    const {data, isLoading} = useCompetitionCodes();
+    const {data, isLoading, refetch} = useCompetitionCodes();
     const createCode = useCreateCode();
     const deactivateCode = useDeactivateCode();
     const reactivateCode = useUpdateCode();
@@ -69,7 +70,7 @@ export function ManageCompetitionCodesPage(){
                     {createCode.isError && (
                         <ApiErrorDisplay
                             error={createCode.error}
-                            fallbackMessage="Não foi possível adicionara competição"
+                            fallbackMessage="Não foi possível adicionar a competição"
                         />
                     )}
                     <div className={styles.formButton}>
@@ -86,6 +87,13 @@ export function ManageCompetitionCodesPage(){
             {isLoading &&
                 <LoadingState/>
             }
+
+            {!data && (
+                <ErrorState
+                    description="Falha ao carregar as competições. Tente novamente."
+                    onRetry={refetch}
+                />
+            )}
 
             {data && (
                 <div className={styles.list}>

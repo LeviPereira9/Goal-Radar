@@ -5,20 +5,22 @@ import { useRemoveFavorite } from "../hooks/useToggleFavorite"
 import styles from "./FavoritesPage.module.css";
 import { Card } from "@/shared/components/Card/Card";
 import { Button } from "@/shared/components/Button/Button";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 export function FavoritesPage() {
   const {data: currentUser} = useMe();
   const username = currentUser?.username ?? "";
   
-  const {data, isLoading, isError} = useFavorites(username);
+  const {data, isLoading, isError, refetch} = useFavorites(username);
   const removeFavorite = useRemoveFavorite(username);
   
   if(isLoading){
-    return <div>Carregando favoritos...</div>
+    return <LoadingState label="Carregando favoritos..." />
   }
 
   if(isError || !data){
-    return <div>Não foi possível carregar seus favoritos.</div>
+    return <ErrorState description="Não foi possível carregar seus favoritos." onRetry={refetch} />
   }
   
   if(data.favorites.length === 0){

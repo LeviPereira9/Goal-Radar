@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-2xl) var(--spacing-lg);
+    text-align: center;
+}
+
+.icon {
+    font-size: var(--font-size-xl);
+    color: var(--color-error);
+    margin-bottom: var(--spacing-xs);
+}
+
+.title{
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    max-width: 320px;
+    margin-bottom: var(--spacing-sm);
+}

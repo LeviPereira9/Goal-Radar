@@ -11,6 +11,7 @@ import { FavoriteButton } from "@/features/favorites/components/FavoriteButton";
 import { Button } from "@/shared/components/Button/Button";
 import styles from "./CompetitionDetailPage.module.css";
 import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 export function CompetitionDetailPage(){
     const {code} = useParams<{code: string}>();
@@ -107,8 +108,7 @@ export function CompetitionDetailPage(){
             }
 
             {matchesQuery.isError &&
-                /* TODO: ErrorState */
-                <p>...</p>
+                <ErrorState onRetry={matchesQuery.refetch}/>
             }
 
             {matchesQuery.data && (

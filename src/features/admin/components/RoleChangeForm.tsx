@@ -10,6 +10,7 @@ import styles from "./RoleChangeForm.module.css";
 import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
 import { Button } from "@/shared/components/Button/Button";
 import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 interface RoleChangeFormProps {
     targetUser: UserShortProfile;
@@ -17,13 +18,17 @@ interface RoleChangeFormProps {
 }
 
 export function RoleChangeForm({targetUser, onDone}: RoleChangeFormProps){
-    const { data: currentUser } = useMe();
-    const { data: rolesData } = useRoles();
+    const { data: currentUser, isLoading: userLoading } = useMe();
+    const { data: rolesData, isLoading: rolesLoading } = useRoles();
     const modifyRole = useModifyRole(targetUser.username);
     const [selectedRole, setSelectedRole] = useState<Role | "">("");
 
-    if(!currentUser || !rolesData){
+    if(userLoading || rolesLoading){
         return <LoadingState/>
+    }
+
+    if(!currentUser || !rolesData){
+        return <ErrorState/>
     }
 
     const canModifyThisUser = canModifyRole(currentUser.role, targetUser.role);
@@ -80,7 +85,7 @@ export function RoleChangeForm({targetUser, onDone}: RoleChangeFormProps){
                     <div className={styles.center}>
                         <Button
                             type="submit"
-                            disabled={!selectedRole || modifyRole.isPending}
+                            isLoading={!selectedRole || modifyRole.isPending}
                         >
                             {modifyRole.isPending ? "Salvando..." : "Salvar"}
                         </Button>

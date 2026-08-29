@@ -1,6 +1,7 @@
 import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 import { useAverages } from "../../hooks/useAverages";
 import styles from "./DataTable.module.css";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 interface AveragesTableProps {
     competitionId: number;
@@ -11,7 +12,7 @@ export function AveragesTable({competitionId}: AveragesTableProps){
 
     if(isLoading) return <LoadingState label="Carreganddo médias..."/>
     
-    if(isError || !data) return <p>Não foi possível carregar as médias.</p>
+    if(isError || !data) return <ErrorState description="Não foi possível carregar as médias." />
 
     return (
         <table className={styles.table} >

@@ -7,13 +7,14 @@ import { Card } from "@/shared/components/Card/Card";
 import { Button } from "@/shared/components/Button/Button";
 import styles from "./UserSearchPage.module.css";
 import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 export function UserSearchPage(){
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(0);
     const debouncedSearch = useDebounce(search, 400);
 
-    const {data, isLoading, isFetching} = useUserSearch(debouncedSearch, page);
+    const {data, isLoading, isFetching, isError } = useUserSearch(debouncedSearch, page);
 
     const handleSearchChange = (value: string) => {
         setSearch(value);
@@ -32,6 +33,8 @@ export function UserSearchPage(){
                 placeholder="Digite um nome de usuário"
             />
             {isLoading && <LoadingState label="Buscando..." /> }
+
+            {isError && <ErrorState/>}
             
             {data && (
                 <>

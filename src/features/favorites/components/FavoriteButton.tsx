@@ -2,6 +2,7 @@ import { useMe } from "@/features/auth/hooks/useMe";
 import { useFavorites } from "../hooks/useFavorites";
 import { useAddFavorite, useRemoveFavorite } from "../hooks/useToggleFavorite";
 import { Button } from "@/shared/components/Button/Button";
+import { ErrorState } from "@/shared/components/ErrorState/ErrorState";
 
 interface FavoriteButtonProps {
     codeId: number;
@@ -9,10 +10,10 @@ interface FavoriteButtonProps {
 
 export function FavoriteButton({codeId}: FavoriteButtonProps){
 
-    const { data: currentUser } = useMe();
+    const { data: currentUser, isError: userError } = useMe();
     const username = currentUser?.username ?? "";
 
-    const { data: favoritesData } = useFavorites(username);
+    const { data: favoritesData, isError: favoritesError } = useFavorites(username);
     const addFavorite = useAddFavorite(username);
     const removeFavorite = useRemoveFavorite(username);
 
@@ -32,6 +33,10 @@ export function FavoriteButton({codeId}: FavoriteButtonProps){
         } else {
             addFavorite.mutate(codeId);
         }
+    }
+
+    if(userError || favoritesError) {
+        return <ErrorState/>
     }
     
     return (
