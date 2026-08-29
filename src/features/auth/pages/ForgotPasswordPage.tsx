@@ -57,7 +57,7 @@ export function ForgotPasswordPage(){
 
                 <Button
                     type="submit"
-                    disabled={forgotPassword.isPending}
+                    isLoading={forgotPassword.isPending}
                     className={sharedStyle.submitButton}
                 >
                     {forgotPassword.isPending ? "Enviando..." : "Enviar código"}

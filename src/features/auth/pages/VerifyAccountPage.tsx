@@ -71,7 +71,7 @@ export function VerifyAccountPage(){
 
                     <Button 
                         type="submit"
-                        disabled={confirmAccount.isPending}
+                        isLoading={confirmAccount.isPending}
                         className={sharedStyle.submitButton}
                     >
                         {confirmAccount.isPending ? "Confirmando..." : "Confirmar"}
@@ -84,7 +84,7 @@ export function VerifyAccountPage(){
                 <Button
                     variant="ghost"
                     onClick={() => resendConfirmation.mutate()}
-                    disabled={resendConfirmation.isPending}
+                    isLoading={resendConfirmation.isPending}
                 >
                     {resendConfirmation.isPending ? "Enviando..." : "Reenviar código"}
                 </Button>

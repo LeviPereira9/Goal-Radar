@@ -80,7 +80,7 @@ export function RegisterPage(){
 
                 <Button 
                     type="submit"
-                    disabled={registerMutation.isPending}
+                    isLoading={registerMutation.isPending}
                     className={sharedStyles.submitButton}
                 > {registerMutation.isPending ? "Criando conta..." : "Criar conta"} </Button>
             </form>

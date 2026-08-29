@@ -66,7 +66,7 @@ export function ChangePasswordPage(){
             
                     <Button
                         type="submit"
-                        disabled={updatePassword.isPending}>
+                        isLoading={updatePassword.isPending}>
                         {updatePassword.isPending ? "Salvando..." : "Alterar senha"}
                     </Button>
             

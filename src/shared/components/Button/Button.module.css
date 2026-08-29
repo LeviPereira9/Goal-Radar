@@ -51,3 +51,23 @@
 .ghost:not(:disabled):hover{
     color: var(--color-text);
 }
+
+.spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: spin 0.6s linear infinite;
+}
+
+.loadingText {
+    opacity: 0.85;
+}
+
+@keyframes spin {
+   to {
+    transform: rotate(360deg);
+   } 
+}

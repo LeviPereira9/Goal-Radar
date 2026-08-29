@@ -67,7 +67,7 @@ export function DeleteAccountPage(){
                     <Button
                         variant="danger"
                         onClick={handleConfirm}
-                        disabled={deleteAccount.isPending}
+                        isLoading={deleteAccount.isPending}
                     >
                         {deleteAccount.isPending ? "Desativando..." : "Sim, desativar"}
                     </Button>

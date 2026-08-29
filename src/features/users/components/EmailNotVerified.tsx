@@ -28,7 +28,7 @@ export function EmailNotVerified({username}: EmailNotVerifiedProps){
             <div className={sharedStyles.center} >
                 <Button
                     onClick={handleResend}
-                    disabled={resendConfirmation.isPending}
+                    isLoading={resendConfirmation.isPending}
                 >
                     {resendConfirmation.isPending ? "Enviando..." : "Reenviar e-mail de verificação"}
                 </Button>

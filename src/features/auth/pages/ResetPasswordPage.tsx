@@ -77,7 +77,7 @@ export function ResetPasswordPage(){
                 
                 <Button
                     type="submit"
-                    disabled={resetPassword.isPending}
+                    isLoading={resetPassword.isPending}
                     className={sharedStyle.submitButton}
                 >
                     {resetPassword.isPending ? "Redefinindo..." : "Redefinir senha"}

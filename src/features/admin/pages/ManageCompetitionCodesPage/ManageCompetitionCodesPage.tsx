@@ -75,7 +75,7 @@ export function ManageCompetitionCodesPage(){
                     <div className={styles.formButton}>
                         <Button
                             type="submit"
-                            disabled={createCode.isPending}
+                            isLoading={createCode.isPending}
                         >
                             {createCode.isPending ? "Adicionando..." : "Adicionar"}
                         </Button>
@@ -131,10 +131,17 @@ export function ManageCompetitionCodesPage(){
                 Tem certeza que deseja desativar o acompanhamento de <strong>{pendingDeactivation?.name}</strong>?
                 </p>
                 <div className={styles.confirmActions}>
-                <Button variant="danger" onClick={confirmDeactivation} disabled={deactivateCode.isPending}>
+                <Button
+                    variant="danger"
+                    onClick={confirmDeactivation}
+                    isLoading={deactivateCode.isPending}
+                >
                     {deactivateCode.isPending ? 'Desativando...' : 'Sim, desativar'}
                 </Button>
-                <Button variant="secondary" onClick={() => setPendingDeactivation(null)}>
+                <Button
+                    variant="secondary"
+                    onClick={() => setPendingDeactivation(null)}
+                >
                     Cancelar
                 </Button>
                 </div>

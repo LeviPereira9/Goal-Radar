@@ -48,7 +48,7 @@ export function RequestEmailForm({username, onRequested}: RequestEmailFormProps)
                     </StatusMessage>
                 )}
                 <div className={sharedStyles.center} >
-                    <Button type="submit" disabled={requestEmailChange.isPending}>
+                    <Button type="submit" isLoading={requestEmailChange.isPending}>
                         {requestEmailChange.isPending ? "Enviando..." : "Enviar código"}
                     </Button>
                 </div>

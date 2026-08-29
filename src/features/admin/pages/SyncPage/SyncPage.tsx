@@ -31,7 +31,7 @@ export function SyncPage(){
                 <div className={styles.cardButton}>
                     <Button
                         onClick={() => startAllSyncs.mutate()}
-                        disabled={startAllSyncs.isPending}
+                        isLoading={startAllSyncs.isPending}
                     >
                         {startAllSyncs.isPending ? "Sincronizando..." : "Sincronizar todas as competições"}
                     </Button>
@@ -64,7 +64,7 @@ export function SyncPage(){
                             <Button
                                 variant="secondary"
                                 onClick={() => handleSyncOne(competition.id)}
-                                disabled={startSync.isPending && syncingCode === competition.id}
+                                isLoading={startSync.isPending && syncingCode === competition.id}
                             >
                                 {startSync.isPending && syncingCode === competition.id ? "Sincronizando..." : "Sincronizar"}
                             </Button>

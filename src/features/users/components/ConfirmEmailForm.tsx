@@ -50,7 +50,7 @@ export function ConfirmEmailForm({username, onConfirmed} : ConfirmEmailFormProps
                 <div className={sharedStyles.center}>
                     <Button
                         type="submit"
-                        disabled={confirmEmailChange.isPending}
+                        isLoading={confirmEmailChange.isPending}
                     > {confirmEmailChange.isPending ? "Confirmando...": "Confirmar"} </Button>
                 </div>
             </form>

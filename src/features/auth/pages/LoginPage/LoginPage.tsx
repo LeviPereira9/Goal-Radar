@@ -71,7 +71,7 @@ export function LoginPage(){
                 
             <Button
                 type="submit"
-                disabled={login.isPending}
+                isLoading={login.isPending}
                 className={sharedStyles.submitButton}
                 >
                 {login.isPending ? "Entrando..." : "Entrar"}
