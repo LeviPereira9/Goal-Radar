@@ -6,6 +6,7 @@ import { TextField } from "@/shared/components/TextField/TextField";
 import { Card } from "@/shared/components/Card/Card";
 import { Button } from "@/shared/components/Button/Button";
 import styles from "./UserSearchPage.module.css";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 
 export function UserSearchPage(){
     const [search, setSearch] = useState("");
@@ -30,7 +31,7 @@ export function UserSearchPage(){
                 onChange={(e) => handleSearchChange(e.target.value)}
                 placeholder="Digite um nome de usuário"
             />
-            {isLoading && <p>Buscando...</p> }
+            {isLoading && <LoadingState label="Buscando..." /> }
             
             {data && (
                 <>

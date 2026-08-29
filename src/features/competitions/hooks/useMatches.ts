@@ -7,5 +7,6 @@ export function useMatches(competitionId: number, matchday: number){
         queryFn: () => competitionService.getMatches(competitionId, matchday),
         enabled: !!competitionId,
         placeholderData: keepPreviousData,
+        retry: 1,
     })
 }

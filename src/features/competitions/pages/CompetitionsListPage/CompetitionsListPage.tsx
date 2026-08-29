@@ -3,12 +3,13 @@ import { useCompetitions } from "../../hooks/useCompetitions";
 import { FavoriteButton } from "@/features/favorites/components/FavoriteButton";
 import { Card } from "@/shared/components/Card/Card";
 import styles from "./CompetitionsListPage.module.css";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 
 export function CompetitionsListPage(){
     const { data, isLoading, isError } = useCompetitions();
 
     if(isLoading){
-        return <div>Carregando competições...</div>
+        return <LoadingState label="Carregando competições..."/>
     }
 
     if(isError){

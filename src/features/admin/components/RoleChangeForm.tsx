@@ -9,6 +9,7 @@ import { Role } from "@/shared/types";
 import styles from "./RoleChangeForm.module.css";
 import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
 import { Button } from "@/shared/components/Button/Button";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 
 interface RoleChangeFormProps {
     targetUser: UserShortProfile;
@@ -22,7 +23,7 @@ export function RoleChangeForm({targetUser, onDone}: RoleChangeFormProps){
     const [selectedRole, setSelectedRole] = useState<Role | "">("");
 
     if(!currentUser || !rolesData){
-        return <p>Carregando...</p>
+        return <LoadingState/>
     }
 
     const canModifyThisUser = canModifyRole(currentUser.role, targetUser.role);

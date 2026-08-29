@@ -6,6 +6,7 @@ import { RequestEmailForm } from "../components/RequestEmailForm";
 import { ConfirmEmailForm } from "../components/ConfirmEmailForm";
 import { EmailChangeDone } from "../components/EmailChangeDone";
 import { UserActionLayout } from "../components/UserActionLayout/UserActionLayout";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 
 type Step = "request" | "confirm" | "done";
 
@@ -16,7 +17,7 @@ export function ChangeEmailPage(){
     const detailsQuery = useUserDetails(username!);
     
     if(detailsQuery.isLoading){
-        return <UserActionLayout title="Alterar e-mail">Carregando...</UserActionLayout>
+        return <UserActionLayout title="Alterar e-mail"><LoadingState label="Carregando..."/></UserActionLayout>
     }
     
     if(detailsQuery.isError || !detailsQuery.data){

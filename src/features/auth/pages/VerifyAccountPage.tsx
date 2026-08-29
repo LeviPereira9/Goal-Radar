@@ -9,6 +9,7 @@ import { StatusMessage } from "@/shared/components/StatusMessage/StatusMessage";
 import { TextField } from "@/shared/components/TextField/TextField";
 import { Button } from "@/shared/components/Button/Button";
 import sharedStyle from "@/shared/styles/shared.module.css";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 
 export function VerifyAccountPage(){
     const {data: profile, isLoading} = useMyDetails();
@@ -25,7 +26,7 @@ export function VerifyAccountPage(){
         resolver: zodResolver(verifyCodeSchema)
     })
 
-    if(isLoading) return <AuthLayout title="Verificar conta">Carregando...</AuthLayout>
+    if(isLoading) return <AuthLayout title="Verificar conta"> <LoadingState/> </AuthLayout>
 
     if(profile?.verified){
         return(

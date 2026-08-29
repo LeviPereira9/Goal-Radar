@@ -6,6 +6,7 @@ import styles from "./UserRoleSearch.module.css";
 import { TextField } from "@/shared/components/TextField/TextField";
 import { Card } from "@/shared/components/Card/Card";
 import { UserAvatar } from "@/shared/components/UserAvatar/UserAvatar";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 
 interface UserRoleSearchProps {
     onSelect: (user: UserShortProfile) => void;
@@ -26,9 +27,8 @@ export function UserRoleSearch({onSelect}: UserRoleSearchProps){
                 onChange={((e) => setSearch(e.target.value))}
                 placeholder="Digite um nome de usuário..."
             />
-
             {isLoading &&
-                <p>Buscando...</p>
+                <LoadingState label="Buscando..." />
             }
 
             {data && (

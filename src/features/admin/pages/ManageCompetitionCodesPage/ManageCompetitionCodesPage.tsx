@@ -10,6 +10,7 @@ import { Button } from "@/shared/components/Button/Button";
 import { Drawer } from "@/shared/components/Drawer/Drawer";
 import type { CompetitionCode } from "../../types/code";
 import { useState } from "react";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 
 export function ManageCompetitionCodesPage(){
     const {data, isLoading} = useCompetitionCodes();
@@ -83,7 +84,7 @@ export function ManageCompetitionCodesPage(){
             </Card>
 
             {isLoading &&
-                <p>Carregando...</p>
+                <LoadingState/>
             }
 
             {data && (

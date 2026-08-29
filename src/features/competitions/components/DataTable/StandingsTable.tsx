@@ -1,3 +1,4 @@
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 import { useStandings } from "../../hooks/useStandings";
 import { TeamEmblem } from "../TeamEmblem/TeamEmblem";
 import styles from "./DataTable.module.css";
@@ -9,7 +10,7 @@ interface StandingsTableProps {
 export function StandingsTable({competitionId}: StandingsTableProps){
     const {data, isLoading, isError} = useStandings(competitionId, true);
 
-    if(isLoading) return <p>Caregar classificação...</p>
+    if(isLoading) return <LoadingState label="Caregar classificação..."/>
     if(isError || !data) return <p>Não foi possível carregar a classificação.</p>
 
     return(

@@ -4,6 +4,7 @@ import { useUserDetails, useUserShortProfile } from "../hooks/useUserProfile"
 import { isSelf as checkIsSelf, isSelfOrElevated } from "@/shared/lib/rbac"
 import { ProfileReadOnly } from "../components/ProfileDetailsView/ProfileReadOnly"
 import { EditableProfile } from "../components/EditableProfile"
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState"
 
 export function UserProfilePage() {
   const { username } = useParams<{username: string}>();
@@ -30,7 +31,7 @@ export function UserProfilePage() {
   const { data: profile, isLoading, isError } = shortQuery;
 
   if(isLoading){
-    return <div>Carregando perfil...</div>;
+    return <LoadingState label="Carregando perfil..."/>;
   }
 
   if(isError || !profile){

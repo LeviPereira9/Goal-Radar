@@ -10,6 +10,7 @@ import { ResponsibleGamingNotice } from "@/shared/components/ResponsibleGamingNo
 import { FavoriteButton } from "@/features/favorites/components/FavoriteButton";
 import { Button } from "@/shared/components/Button/Button";
 import styles from "./CompetitionDetailPage.module.css";
+import { LoadingState } from "@/shared/components/LoadingState/LoadingState";
 
 export function CompetitionDetailPage(){
     const {code} = useParams<{code: string}>();
@@ -18,7 +19,7 @@ export function CompetitionDetailPage(){
 
     const {
         data: competition,
-        isLoading: isLoadingCompetition
+        isLoading: isLoadingCompetition,
     } = useCompetitionDetail(code!);
 
     const matchday = matchdays[code!] ?? competition?.currentMatchDay ?? 1;
@@ -29,7 +30,7 @@ export function CompetitionDetailPage(){
     );
 
     if(isLoadingCompetition){
-        return <div>Carregando competição...</div>
+        return <LoadingState label="Carregando competição..." />
     }
 
     if(!competition){
@@ -102,7 +103,12 @@ export function CompetitionDetailPage(){
             ) }
 
             {matchesQuery.isLoading &&
-                <p>Carregando partidas...</p>
+                <LoadingState label="Carregando partidas..."/>
+            }
+
+            {matchesQuery.isError &&
+                /* TODO: ErrorState */
+                <p>...</p>
             }
 
             {matchesQuery.data && (
