@@ -7,7 +7,7 @@ import { hasMinimumRole } from "@/shared/lib/rbac";
 import { Role } from "@/shared/types";
 import { Button } from "@/shared/components/Button/Button";
 import { UserAvatar } from "@/shared/components/UserAvatar/UserAvatar";
-import { CompetitionsDropdown } from "./CompetitionsDropdown";
+import { CompetitionsDropdown } from "../CompetitionsDropdown/CompetitionsDropdown";
 
 export function Header(){
     const {data: currentUser} = useMe();

@@ -1,6 +1,11 @@
+import { StatePage } from "../components/StatePage/StatePage";
 
 export function NotFoundPage() {
   return (
-    <h1>Página não encontrada</h1>
+    <StatePage
+      code="404"
+      title="Página não encontrada"
+      description="A página que você procura não existe ou foi movida."
+    />
   )
 }

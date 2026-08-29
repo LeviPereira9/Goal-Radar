@@ -1,7 +1,8 @@
 import { Outlet } from "react-router-dom";
-import { Header } from "./Header";
+import { Header } from "./Header/Header";
 import styles from "./AppLayout.module.css";
-import { FavoritesBar } from "./FavoritesBar";
+import { FavoritesBar } from "./FavoritesBar/FavoritesBar";
+import { Footer } from "./Footer/Footer";
 
 export function AppLayout(){
     return(
@@ -13,6 +14,7 @@ export function AppLayout(){
                     <Outlet/>
                 </div>
             </main>
+            <Footer/>
         </div>
     )
 }
