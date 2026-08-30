@@ -59,12 +59,12 @@ export function ProfileDetailsView({profile, isSelf, onEdit}: ProfileDetailsView
                         onClick={onEdit}
                     >Editar perfil</Button>
                     {isSelf && (
-                        <>
+                        <div className={styles.actionsLink}>
                             <Link to={`/users/${profile.username}/password`}>
                             Alterar senha</Link>
                             <Link to={`/users/${profile.username}/email`}
                             >Alterar e-mail</Link>
-                        </>
+                        </div>
                     )}
                     <Link to={`/users/${profile.username}/delete`} className={styles.dangerLink}>Desativar conta</Link>
                 </div>
