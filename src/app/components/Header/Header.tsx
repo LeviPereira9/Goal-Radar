@@ -8,14 +8,19 @@ import { Role } from "@/shared/types";
 import { Button } from "@/shared/components/Button/Button";
 import { UserAvatar } from "@/shared/components/UserAvatar/UserAvatar";
 import { CompetitionsDropdown } from "../CompetitionsDropdown/CompetitionsDropdown";
+import { useState } from "react";
 
 export function Header(){
     const {data: currentUser} = useMe();
     const {data: profile} = useMyDetails();
     const logout = useLogout();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const isMod = !!currentUser && hasMinimumRole(currentUser.role, Role.MOD);
 
+    const closeMenu = () => setIsMenuOpen(false);
+
+    
 
     return (
         <>
@@ -24,29 +29,41 @@ export function Header(){
                     <Link 
                         to="/"
                         className={styles.logo}
-                    >Goal Radar</Link>
-                    <nav className={styles.nav}>
-                        <CompetitionsDropdown/>
+                    >
+                        Goal Radar
+                    </Link>
+
+                    {/* Desktop menu */}
+                    <nav className={`${styles.nav} ${isMenuOpen ? styles.navOpen : ""}`}>
+                        {/* Menu de competiçoes */}
+                        <CompetitionsDropdown
+                            onNavigate={closeMenu}
+                        />
+
                         <NavLink
+                            onClick={closeMenu}
                             to={"/search"}
                             className={({isActive}) => (isActive ? styles.active : undefined)}
                         >Buscar</NavLink>
                         <NavLink 
+                            onClick={closeMenu}
                             to={"/favorites"}
                             className={({isActive}) => (isActive ? styles.active : undefined)}
                         >Favoritos</NavLink>
                         {isMod && (
                             <NavLink 
+                                onClick={closeMenu}
                                 to={"/admin"}
                                 className={({isActive}) => (isActive ? styles.active : undefined)}
                             >Admin</NavLink>
                         )}
                     </nav>
-
+                    
                     <div className={styles.userArea} >
                         {currentUser && (
                             <>
                                 <Link
+                                    onClick={closeMenu}
                                     to={`/users/${currentUser.username}`}
                                     className={styles.userLink}
                                 >
@@ -59,13 +76,55 @@ export function Header(){
                                 </Link>
                                 <Button
                                     variant="ghost"
-                                    onClick={() => logout.mutate()}
+                                    onClick={() => {
+                                        closeMenu();
+                                        logout.mutate();
+                                    }}
                                 >
                                     Sair
                                 </Button>
                             </>
                         )}
                     </div>
+
+                    <div className={styles.mobile}>
+                        {currentUser && (
+                            <div className={styles.mobileUserArea}>
+                                <Link
+                                    to={`/users/${currentUser.username}`}
+                                    className={styles.userLink}
+                                    onClick={closeMenu}
+                                >
+                                    <UserAvatar
+                                        src={profile?.profilePicture}
+                                        username={currentUser.username}
+                                        size="sm"
+                                    />
+                                    <span>{currentUser.username}</span>
+                                </Link>
+                                <Button
+                                    variant="ghost"
+                                    onClick={() => {
+                                        closeMenu();
+                                        logout.mutate();
+                                    }}
+                                >
+                                    Sair
+                                </Button>
+                            </div>
+                        )}
+                        <button
+                            className={styles.menuToggle}
+                            onClick={() => setIsMenuOpen((v) => !v)}
+                            aria-expanded={isMenuOpen}
+                            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+                        >
+                            <span className={`${styles.bar} ${isMenuOpen ? styles.barOpen1 : ''}`} />
+                            <span className={`${styles.bar} ${isMenuOpen ? styles.barOpen2 : ''}`} />
+                            <span className={`${styles.bar} ${isMenuOpen ? styles.barOpen3 : ''}`} />
+                        </button>
+                    </div>
+                    
                 </div>
             </header>
 
