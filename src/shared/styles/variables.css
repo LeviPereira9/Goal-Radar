@@ -44,3 +44,11 @@
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
     --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
+
+
+/* Breakpoints de referencia
+- mobile: até 599px
+- table: 600px a 959px
+-- desktop 960px+ (max-width)
+
+*/

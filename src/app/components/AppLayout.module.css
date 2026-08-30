@@ -13,3 +13,9 @@
     margin: 0 auto;
     padding: var(--spacing-xl) var(--spacing-lg);
 }
+
+@media (max-width: 599px){
+    .container {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+}
