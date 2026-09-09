@@ -16,7 +16,7 @@ const ROLE_BY_TYPE: Record<StatusType, "alert" | "status"> = {
 }
 
 export function StatusMessage({type, children}: StatusMessageProps){
-    if(isValidElement(children)){
+    if(!isValidElement(children)){
         return null;
     }
     
