@@ -2,6 +2,69 @@
 
 O **Goal Radar** é uma aplicação web que fornece dados estatísticos de campeonatos de futebol para apoiar decisões informadas em apostas esportivas. O foco inicial é apresentar a probabilidade de ocorrência de gols em partidas, calculada pelo back-end (FStats API) com base em distribuição estatística sobre o histórico de gols de cada competição.
 
+## Acesso à aplicação em produção
+ 
+A aplicação está disponível publicamente em: **https://goal-radar-rho.vercel.app/**
+ 
+O back-end (FStats API) está hospedado no Render, em um plano gratuito que hiberna a aplicação após um período de inatividade. A primeira requisição feita após um tempo sem uso pode demorar de alguns segundos até cerca de um minuto para responder, enquanto o serviço é reativado. Requisições subsequentes voltam ao tempo de resposta normal. Esse comportamento é esperado e não indica falha da aplicação.
+ 
+## Como executar o projeto localmente
+ 
+O Goal Radar é composto por dois repositórios independentes: este front-end e a [FStats API](https://github.com/LeviPereira9/fstats), que deve estar em execução para que a aplicação funcione.
+ 
+### 1. Executando o back-end (FStats API)
+ 
+O back-end utiliza Docker para facilitar a execução do ambiente completo (incluindo banco de dados MySQL e Redis).
+ 
+```bash
+git clone https://github.com/LeviPereira9/fstats.git
+cd fstats
+```
+ 
+Configure as variáveis de ambiente com base no arquivo `.env.example` do repositório (crie um `.env` preenchido, ou configure diretamente nos arquivos `.properties` para execução local).
+ 
+```bash
+docker-compose up -d
+```
+ 
+A API estará disponível em `http://localhost:8080`, com a documentação Swagger em `http://localhost:8080/swagger-ui/index.html`.
+ 
+Consulte o [README](https://github.com/LeviPereira9/fstats.git) do repositório da FStats API para detalhes completos de configuração, arquitetura em camadas e padrão de respostas.
+ 
+### 2. Executando o front-end (Goal Radar)
+ 
+Com o back-end em execução, clone e configure o front-end:
+ 
+```bash
+git clone <url-deste-repositório>
+cd goal-radar
+npm install
+```
+ 
+Crie um arquivo `.env` na raiz do projeto com a URL da API:
+ 
+```bash
+VITE_API_BASE_URL=http://localhost:8080
+```
+ 
+Essa variável é lida em `src/shared/lib/http/config.ts`, via `import.meta.env.VITE_API_BASE_URL`, e define a base de todas as chamadas HTTP feitas pelo cliente da aplicação.
+ 
+Inicie o servidor de desenvolvimento:
+ 
+```bash
+npm run dev
+```
+ 
+A aplicação estará disponível em `http://localhost:5173` (porta padrão do Vite).
+ 
+### 3. Build de produção
+ 
+```bash
+npm run build
+```
+ 
+Os arquivos otimizados são gerados na pasta `dist/`, prontos para deploy em qualquer serviço de hospedagem de conteúdo estático (Vercel, Netlify, etc.).
+
 ## Stack Técnica
 
 | Camada                 | Tecnologia            | Motivo                                                               |
